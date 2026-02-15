@@ -1,62 +1,64 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+const API_BASE = process.env.REACT_APP_API_URL;
+
 export default function AdminAuth() {
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const submit = async () => {
-    const endpoint =
-      mode === "signup"
-        ? "http://localhost:4000/api/admin/register"
-        : `${process.env.REACT_APP_API_URL}/admin/login`;
+    try {
+      setLoading(true);
 
-    const res = await fetch(endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+      const endpoint =
+        mode === "signup"
+          ? `${API_BASE}/admin/register`
+          : `${API_BASE}/admin/login`;
 
-    const data = await res.json();
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-    if (data.token) {
-      localStorage.setItem("token", data.token);
-      navigate("/admin/dashboard");
-    } else {
-      alert(data.message || "Something went wrong");
+      if (!res.ok) {
+        throw new Error("Request failed");
+      }
+
+      const data = await res.json();
+
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+        navigate("/admin/dashboard");
+      } else {
+        alert(data.message || "Authentication failed");
+      }
+    } catch (err) {
+      alert("Failed to connect to server");
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen flex">
-      {/* LEFT CONTENT */}
       <div className="hidden md:flex w-1/2 bg-[#5f7fa3] text-white p-12 flex-col justify-center">
-        <h1 className="text-4xl font-light mb-6">
-          HealthForAll Admin Portal
-        </h1>
+        <h1 className="text-4xl font-light mb-6">HealthForAll Admin Portal</h1>
         <p className="text-lg mb-4">
-          Manage blogs, resources, volunteers, outreach programs and
-          impact stories from one central dashboard.
-        </p>
-        <p className="text-sm opacity-90">
-          This portal is restricted to authorized administrators only.
+          Manage blogs, resources, volunteers and impact stories.
         </p>
       </div>
 
-      {/* RIGHT FORM */}
       <div className="w-full md:w-1/2 flex items-center justify-center">
         <div className="w-full max-w-md p-8">
-          <h2 className="text-2xl font-semibold mb-2">
+          <h2 className="text-2xl font-semibold mb-6">
             {mode === "signin" ? "Sign In" : "Sign Up"}
           </h2>
-
-          <p className="text-sm text-gray-600 mb-6">
-            {mode === "signin"
-              ? "Access your admin dashboard"
-              : "Create an admin account"}
-          </p>
 
           <input
             type="email"
@@ -76,9 +78,10 @@ export default function AdminAuth() {
 
           <button
             onClick={submit}
-            className="w-full bg-pink-600 text-white py-3 rounded hover:bg-pink-700 transition"
+            disabled={loading}
+            className="w-full bg-pink-600 text-white py-3 rounded hover:bg-pink-700 disabled:opacity-50"
           >
-            {mode === "signin" ? "Sign In" : "Sign Up"}
+            {loading ? "Please wait..." : mode === "signin" ? "Sign In" : "Sign Up"}
           </button>
 
           <p className="text-sm text-center mt-6">
