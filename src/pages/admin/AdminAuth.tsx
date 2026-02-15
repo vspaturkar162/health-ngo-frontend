@@ -11,39 +11,35 @@ export default function AdminAuth() {
   const navigate = useNavigate();
 
   const submit = async () => {
-    try {
-      setLoading(true);
+  try {
+    const endpoint =
+      mode === "signup"
+        ? `${process.env.REACT_APP_API_URL}/admin/register`
+        : `${process.env.REACT_APP_API_URL}/admin/login`;
 
-      const endpoint =
-        mode === "signup"
-          ? `${API_BASE}/admin/register`
-          : `${API_BASE}/admin/login`;
+    const res = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
 
-      const res = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!res.ok) {
-        throw new Error("Request failed");
-      }
-
-      const data = await res.json();
-
-      if (data.token) {
-        localStorage.setItem("token", data.token);
-        navigate("/admin/dashboard");
-      } else {
-        alert(data.message || "Authentication failed");
-      }
-    } catch (err) {
-      alert("Failed to connect to server");
-      console.error(err);
-    } finally {
-      setLoading(false);
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.message || "Request failed");
     }
-  };
+
+    const data = await res.json();
+
+    if (data.token) {
+      localStorage.setItem("token", data.token);
+      navigate("/admin/dashboard");
+    }
+  } catch (err: any) {
+    alert(err.message || "Failed to connect to server");
+  }
+};
 
   return (
     <div className="min-h-screen flex">
