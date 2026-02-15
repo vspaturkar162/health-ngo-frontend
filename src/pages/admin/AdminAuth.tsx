@@ -11,7 +11,7 @@ export default function AdminAuth() {
     const endpoint =
       mode === "signup"
         ? "http://localhost:4000/api/admin/register"
-        : "http://localhost:4000/api/admin/login";
+        : `${process.env.REACT_APP_API_URL}/admin/login`;
 
     const res = await fetch(endpoint, {
       method: "POST",

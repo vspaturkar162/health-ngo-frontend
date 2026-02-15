@@ -25,7 +25,7 @@ export default function Footer() {
 
         <div>
           <h4 className="font-semibold mb-2">Follow Us</h4>
-          <p>Facebook | Twitter | LinkedIn</p>
+          <p><a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a> | <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a> | <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
         </div>
       </div>
     </footer>

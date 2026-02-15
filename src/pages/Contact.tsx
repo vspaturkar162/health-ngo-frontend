@@ -71,8 +71,8 @@ export default function Contact() {
           {/* Info */}
           <div className="text-sm text-gray-700">
             <p><strong>Email:</strong> info@healthngo.org</p>
-            <p><strong>Phone:</strong> +91 9XXXXXXXXX</p>
-            <p><strong>Address:</strong> Mumbai, India</p>
+            <p><strong>Phone:</strong> +91 97652XXXXX</p>
+            <p><strong>Address:</strong> Chhatrapati Sambhajinagar, India</p>
           </div>
         </div>
       </section>

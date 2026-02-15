@@ -1,4 +1,4 @@
-import Navbar from "../../components/Navbar";
+// import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
 const people = [
@@ -25,7 +25,7 @@ const people = [
 export default function People() {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
 
       <section className="py-16 max-w-6xl mx-auto px-6">
         <h1 className="text-4xl font-light mb-10">People</h1>

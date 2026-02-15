@@ -1,10 +1,10 @@
-import Navbar from "../../components/Navbar";
+// import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
 export default function OurStory() {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <section className="py-16 max-w-5xl mx-auto px-6">
         <h1 className="text-4xl font-light mb-4">Our Story</h1>
         <p className="text-gray-700">

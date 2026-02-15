@@ -1,20 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-body {
+
+/* Global reset */
+html, body, #root {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-/* Global link hover */
+/* Hover utilities */
 .hover-link {
   transition: color 0.3s ease;
 }
@@ -23,7 +20,6 @@ code {
   color: #e91e63;
 }
 
-/* Dropdown links */
 .dropdown-link {
   display: block;
   padding: 10px 16px;
@@ -33,8 +29,4 @@ code {
 
 .dropdown-link:hover {
   background: rgba(255, 255, 255, 0.2);
-}
-/* index.css */
-.input {
-  @apply border px-3 py-2 rounded w-full;
 }
