@@ -1,7 +1,115 @@
+// import { useState } from "react";
+// import { useNavigate } from "react-router-dom";
+
+// // const API_BASE = process.env.REACT_APP_API_URL;
+
+// export default function AdminAuth() {
+//   const [mode, setMode] = useState<"signin" | "signup">("signin");
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
+//   const [loading, setLoading] = useState(false);
+//   const navigate = useNavigate();
+
+//   const submit = async () => {
+//   try {
+//     const endpoint =
+//       mode === "signup"
+//         ? "/api/admin/register"
+//         : "/api/admin/login";
+
+//     const res = await fetch(endpoint, {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({ email, password }),
+//     });
+
+//     if (!res.ok) {
+//       const err = await res.json();
+//       throw new Error(err.message || "Request failed");
+//     }
+
+//     const data = await res.json();
+
+//     if (data.token) {
+//       localStorage.setItem("token", data.token);
+//       navigate("/admin/dashboard");
+//     }
+//   } catch (err: any) {
+//     alert(err.message || "Failed to connect to server");
+//   }
+// };
+
+//   return (
+//     <div className="min-h-screen flex">
+//       <div className="hidden md:flex w-1/2 bg-[#5f7fa3] text-white p-12 flex-col justify-center">
+//         <h1 className="text-4xl font-light mb-6">HealthForAll Admin Portal</h1>
+//         <p className="text-lg mb-4">
+//           Manage blogs, resources, volunteers and impact stories.
+//         </p>
+//       </div>
+
+//       <div className="w-full md:w-1/2 flex items-center justify-center">
+//         <div className="w-full max-w-md p-8">
+//           <h2 className="text-2xl font-semibold mb-6">
+//             {mode === "signin" ? "Sign In" : "Sign Up"}
+//           </h2>
+
+//           <input
+//             type="email"
+//             placeholder="Email"
+//             className="w-full border p-3 mb-4 rounded"
+//             value={email}
+//             onChange={(e) => setEmail(e.target.value)}
+//           />
+
+//           <input
+//             type="password"
+//             placeholder="Password"
+//             className="w-full border p-3 mb-6 rounded"
+//             value={password}
+//             onChange={(e) => setPassword(e.target.value)}
+//           />
+
+//           <button
+//             onClick={submit}
+//             disabled={loading}
+//             className="w-full bg-pink-600 text-white py-3 rounded hover:bg-pink-700 disabled:opacity-50"
+//           >
+//             {loading ? "Please wait..." : mode === "signin" ? "Sign In" : "Sign Up"}
+//           </button>
+
+//           <p className="text-sm text-center mt-6">
+//             {mode === "signin" ? (
+//               <>
+//                 Don’t have an account?{" "}
+//                 <button
+//                   className="text-blue-600"
+//                   onClick={() => setMode("signup")}
+//                 >
+//                   Sign Up
+//                 </button>
+//               </>
+//             ) : (
+//               <>
+//                 Already have an account?{" "}
+//                 <button
+//                   className="text-blue-600"
+//                   onClick={() => setMode("signin")}
+//                 >
+//                   Sign In
+//                 </button>
+//               </>
+//             )}
+//           </p>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-const API_BASE = process.env.REACT_APP_API_URL;
 
 export default function AdminAuth() {
   const [mode, setMode] = useState<"signin" | "signup">("signin");
@@ -11,35 +119,41 @@ export default function AdminAuth() {
   const navigate = useNavigate();
 
   const submit = async () => {
-  try {
-    const endpoint =
-      mode === "signup"
-        ? `${process.env.REACT_APP_API_URL}/admin/register`
-        : `${process.env.REACT_APP_API_URL}/admin/login`;
+    setLoading(true);
+    
+    try {
+      // ✅ ADD YOUR RENDER BACKEND URL HERE
+      const API_URL = process.env.REACT_APP_API_URL || "https://your-render-backend.onrender.com";
+      
+      const endpoint = mode === "signup"
+        ? `${API_URL}/api/admin/register`
+        : `${API_URL}/api/admin/login`;
 
-    const res = await fetch(endpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-    if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.message || "Request failed");
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.message || "Request failed");
+      }
+
+      const data = await res.json();
+
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+        navigate("/admin/dashboard");
+      }
+    } catch (err: any) {
+      alert(err.message || "Failed to connect to server");
+    } finally {
+      setLoading(false);
     }
-
-    const data = await res.json();
-
-    if (data.token) {
-      localStorage.setItem("token", data.token);
-      navigate("/admin/dashboard");
-    }
-  } catch (err: any) {
-    alert(err.message || "Failed to connect to server");
-  }
-};
+  };
 
   return (
     <div className="min-h-screen flex">
@@ -83,7 +197,7 @@ export default function AdminAuth() {
           <p className="text-sm text-center mt-6">
             {mode === "signin" ? (
               <>
-                Don’t have an account?{" "}
+                Don't have an account?{" "}
                 <button
                   className="text-blue-600"
                   onClick={() => setMode("signup")}

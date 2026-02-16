@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://health-ngo-backend-o7rj.onrender.com/api/$1"
+    }
+  ]
+}
