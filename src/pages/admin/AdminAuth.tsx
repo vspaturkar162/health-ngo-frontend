@@ -1,7 +1,6 @@
+
 // import { useState } from "react";
 // import { useNavigate } from "react-router-dom";
-
-// // const API_BASE = process.env.REACT_APP_API_URL;
 
 // export default function AdminAuth() {
 //   const [mode, setMode] = useState<"signin" | "signup">("signin");
@@ -11,35 +10,41 @@
 //   const navigate = useNavigate();
 
 //   const submit = async () => {
-//   try {
-//     const endpoint =
-//       mode === "signup"
-//         ? "/api/admin/register"
-//         : "/api/admin/login";
+//     setLoading(true);
+    
+//     try {
+//       // ✅ ADD YOUR RENDER BACKEND URL HERE
+//       const API_URL = process.env.REACT_APP_API_URL || "https://your-render-backend.onrender.com";
+      
+//       const endpoint = mode === "signup"
+//         ? `${API_URL}/api/admin/register`
+//         : `${API_URL}/api/admin/login`;
 
-//     const res = await fetch(endpoint, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({ email, password }),
-//     });
+//       const res = await fetch(endpoint, {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({ email, password }),
+//       });
 
-//     if (!res.ok) {
-//       const err = await res.json();
-//       throw new Error(err.message || "Request failed");
+//       if (!res.ok) {
+//         const err = await res.json();
+//         throw new Error(err.message || "Request failed");
+//       }
+
+//       const data = await res.json();
+
+//       if (data.token) {
+//         localStorage.setItem("token", data.token);
+//         navigate("/admin/dashboard");
+//       }
+//     } catch (err: any) {
+//       alert(err.message || "Failed to connect to server");
+//     } finally {
+//       setLoading(false);
 //     }
-
-//     const data = await res.json();
-
-//     if (data.token) {
-//       localStorage.setItem("token", data.token);
-//       navigate("/admin/dashboard");
-//     }
-//   } catch (err: any) {
-//     alert(err.message || "Failed to connect to server");
-//   }
-// };
+//   };
 
 //   return (
 //     <div className="min-h-screen flex">
@@ -83,7 +88,7 @@
 //           <p className="text-sm text-center mt-6">
 //             {mode === "signin" ? (
 //               <>
-//                 Don’t have an account?{" "}
+//                 Don't have an account?{" "}
 //                 <button
 //                   className="text-blue-600"
 //                   onClick={() => setMode("signup")}
@@ -108,6 +113,8 @@
 //     </div>
 //   );
 // }
+
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -119,37 +126,42 @@ export default function AdminAuth() {
   const navigate = useNavigate();
 
   const submit = async () => {
+    if (!email || !password) {
+      alert("Please enter email and password");
+      return;
+    }
+
     setLoading(true);
-    
+
     try {
-      // ✅ ADD YOUR RENDER BACKEND URL HERE
-      const API_URL = process.env.REACT_APP_API_URL || "https://your-render-backend.onrender.com";
-      
-      const endpoint = mode === "signup"
-        ? `${API_URL}/api/admin/register`
-        : `${API_URL}/api/admin/login`;
+      // ✅ Relative URLs work because vercel.json proxies /api/* to Render
+      const endpoint =
+        mode === "signup"
+          ? "/api/admin/register"
+          : "/api/admin/login";
+
+      console.log("🔄 Hitting endpoint:", endpoint); // debug
 
       const res = await fetch(endpoint, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
 
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.message || "Request failed");
-      }
-
       const data = await res.json();
+      console.log("📦 Response:", data); // debug
+
+      if (!res.ok) {
+        throw new Error(data.message || "Authentication failed");
+      }
 
       if (data.token) {
         localStorage.setItem("token", data.token);
         navigate("/admin/dashboard");
       }
     } catch (err: any) {
-      alert(err.message || "Failed to connect to server");
+      console.error("❌ Error:", err);
+      alert(err.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -162,13 +174,21 @@ export default function AdminAuth() {
         <p className="text-lg mb-4">
           Manage blogs, resources, volunteers and impact stories.
         </p>
+        <p className="text-sm opacity-90">
+          This portal is restricted to authorized administrators only.
+        </p>
       </div>
 
       <div className="w-full md:w-1/2 flex items-center justify-center">
         <div className="w-full max-w-md p-8">
-          <h2 className="text-2xl font-semibold mb-6">
+          <h2 className="text-2xl font-semibold mb-2">
             {mode === "signin" ? "Sign In" : "Sign Up"}
           </h2>
+          <p className="text-sm text-gray-600 mb-6">
+            {mode === "signin"
+              ? "Access your admin dashboard"
+              : "Create an admin account"}
+          </p>
 
           <input
             type="email"
@@ -189,9 +209,13 @@ export default function AdminAuth() {
           <button
             onClick={submit}
             disabled={loading}
-            className="w-full bg-pink-600 text-white py-3 rounded hover:bg-pink-700 disabled:opacity-50"
+            className="w-full bg-pink-600 text-white py-3 rounded hover:bg-pink-700 transition disabled:opacity-50"
           >
-            {loading ? "Please wait..." : mode === "signin" ? "Sign In" : "Sign Up"}
+            {loading
+              ? "Please wait..."
+              : mode === "signin"
+              ? "Sign In"
+              : "Sign Up"}
           </button>
 
           <p className="text-sm text-center mt-6">
