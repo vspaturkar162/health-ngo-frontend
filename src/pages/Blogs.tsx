@@ -1,48 +1,82 @@
-// import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import { Link } from "react-router-dom";
+// // import Navbar from "../components/Navbar";
+// import Footer from "../components/Footer";
+// import { Link } from "react-router-dom";
 
-const blogs = [
-  {
-    id: "maternal-health",
-    title: "Improving Maternal Health in Urban Communities",
-    content:
-      "We work closely with public health systems to ensure quality care for mothers and newborns..."
-  },
-  {
-    id: "violence-prevention",
-    title: "Preventing Violence Against Women",
-    content:
-      "Community-led interventions play a critical role in preventing violence..."
-  }
-];
+// const blogs = [
+//   {
+//     id: "maternal-health",
+//     title: "Improving Maternal Health in Urban Communities",
+//     content:
+//       "We work closely with public health systems to ensure quality care for mothers and newborns..."
+//   },
+//   {
+//     id: "violence-prevention",
+//     title: "Preventing Violence Against Women",
+//     content:
+//       "Community-led interventions play a critical role in preventing violence..."
+//   }
+// ];
+
+// export default function Blogs() {
+//   return (
+//     <>
+//       {/* <Navbar /> */}
+
+//       <section className="py-16 max-w-6xl mx-auto px-6">
+//         <h1 className="text-4xl font-light mb-8">Blogs & Media</h1>
+
+//         <div className="space-y-8">
+//           {blogs.map((b) => (
+//             <div key={b.id} className="border-b pb-6">
+//               <h2 className="text-xl font-semibold mb-2">{b.title}</h2>
+//               <p className="text-sm text-gray-600 mb-3">{b.content}</p>
+
+//               <Link
+//                 to={`/blogs/${b.id}`}
+//                 className="text-blue-600 hover:text-pink-600"
+//               >
+//                 Read full article →
+//               </Link>
+//             </div>
+//           ))}
+//         </div>
+//       </section>
+
+//       <Footer />
+//     </>
+//   );
+// }
+
+import { useEffect, useState } from "react";
+
+const API = process.env.REACT_APP_API_URL;
+
+interface Blog {
+  _id: string;
+  title: string;
+  excerpt?: string;
+  content: string;
+}
 
 export default function Blogs() {
+  const [blogs, setBlogs] = useState<Blog[]>([]);
+
+  useEffect(() => {
+    fetch(`${API}/api/blogs`)
+      .then((res) => res.json())
+      .then(setBlogs);
+  }, []);
+
   return (
-    <>
-      {/* <Navbar /> */}
+    <div className="p-6 space-y-6">
+      <h1 className="text-2xl font-semibold">Blogs</h1>
 
-      <section className="py-16 max-w-6xl mx-auto px-6">
-        <h1 className="text-4xl font-light mb-8">Blogs & Media</h1>
-
-        <div className="space-y-8">
-          {blogs.map((b) => (
-            <div key={b.id} className="border-b pb-6">
-              <h2 className="text-xl font-semibold mb-2">{b.title}</h2>
-              <p className="text-sm text-gray-600 mb-3">{b.content}</p>
-
-              <Link
-                to={`/blogs/${b.id}`}
-                className="text-blue-600 hover:text-pink-600"
-              >
-                Read full article →
-              </Link>
-            </div>
-          ))}
+      {blogs.map((blog) => (
+        <div key={blog._id} className="border p-4 rounded">
+          <h2 className="text-xl font-bold">{blog.title}</h2>
+          <p className="text-gray-600">{blog.excerpt}</p>
         </div>
-      </section>
-
-      <Footer />
-    </>
+      ))}
+    </div>
   );
 }
