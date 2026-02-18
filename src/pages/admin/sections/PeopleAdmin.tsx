@@ -20,7 +20,7 @@ export default function PeopleAdmin() {
       </p>
 
       <button
-        onClick={() => alert("Add Person feature coming soon")}
+        onClick={() => alert("error")}
         className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition"
       >
         Add Person

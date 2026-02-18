@@ -42,7 +42,7 @@ export default function SocialLinksAdmin() {
       />
 
       <button
-        onClick={() => alert("Social links update coming soon")}
+        onClick={() => alert("error")}
         className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
       >
         Update Links

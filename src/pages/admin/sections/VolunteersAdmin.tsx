@@ -21,7 +21,7 @@ export default function VolunteersAdmin() {
       </p>
 
       <button
-        onClick={() => alert("Volunteer applications view coming soon")}
+        onClick={() => alert("error")}
         className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition"
       >
         View Applications
