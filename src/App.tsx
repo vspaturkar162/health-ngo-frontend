@@ -139,7 +139,7 @@
 //   );
 // }
 
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -161,10 +161,14 @@ import AdminAuth from "./pages/admin/AdminAuth";
 import AdminDashboard from "./pages/admin/Dashboard";
 
 function App() {
+  const location = useLocation();
+
+  // ❌ Hide navbar on admin routes
+  const hideNavbar = location.pathname.startsWith("/admin");
+
   return (
     <>
-      {/* ✅ Navbar only for public pages */}
-      <Navbar />
+      {!hideNavbar && <Navbar />}
 
       <Routes>
         {/* ===== PUBLIC ROUTES ===== */}
