@@ -4,7 +4,7 @@
 //   withCredentials: true,
 //   timeout: 15000
 // });
-// export default api;
+
 
 import axios from 'axios';
 
