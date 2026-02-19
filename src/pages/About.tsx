@@ -1,5 +1,5 @@
 // import Navbar from "../components/Navbar";
-import { Link, Route } from "react-router-dom";
+import { Link, Outlet, Route } from "react-router-dom";
 import Footer from "../components/Footer";
 import OurStory from "../pages/about/OurStory";
 import HowWeWork from "./about/HowWeWork";
@@ -50,6 +50,7 @@ export default function About() {
             Research & Evaluation
           </Link>
         </div>
+        <Outlet />
       </div>
       <Footer />
     </>

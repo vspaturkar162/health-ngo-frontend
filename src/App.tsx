@@ -149,6 +149,10 @@ import Blogs from "./pages/Blogs";
 import BlogDetails from "./pages/BlogDetails";
 import Events from "./pages/Events";
 import About from "./pages/About";
+import OurStory from "./pages/about/OurStory";
+import HowWeWork from "./pages/about/HowWeWork";
+import People from "./pages/about/people";
+import Research from "./pages/about/Research";
 import Work from "./pages/Work";
 import Resources from "./pages/Resources";
 import Contact from "./pages/Contact";
@@ -176,7 +180,15 @@ function App() {
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/blogs/:id" element={<BlogDetails />} />
         <Route path="/events" element={<Events />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/about" element={<About />}>
+        {/* DEFAULT CONTENT for /about */}
+        <Route index element={<OurStory />} />
+        {/* Sub-pages */}
+        <Route path="our-story" element={<OurStory />} />
+        <Route path="how-we-work" element={<HowWeWork />} />
+        <Route path="people" element={<People />} />
+        <Route path="research" element={<Research />} />
+      </Route>
         <Route path="/work" element={<Work />} />
         <Route path="/resources" element={<Resources />} />
         <Route path="/contact" element={<Contact />} />
