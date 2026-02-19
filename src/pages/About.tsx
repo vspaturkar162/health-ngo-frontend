@@ -1,6 +1,6 @@
 // import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-
+import OurStory from "../pages/about/OurStory";
 export default function About() {
   return (
     <>
@@ -12,6 +12,7 @@ export default function About() {
           women, children and adolescents through community-based
           interventions.
         </p>
+        <OurStory/>
       </div>
       <Footer />
     </>
