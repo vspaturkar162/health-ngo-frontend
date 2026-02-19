@@ -64,11 +64,11 @@ import PeopleAdmin from "./sections/PeopleAdmin";
 import VolunteersAdmin from "./sections/VolunteersAdmin";
 import AboutAdmin from "./sections/AboutAdmin";
 import SocialLinksAdmin from "./sections/SocialLinksAdmin";
-import { IconType } from "react-icons";
+// import { IconType } from "react-icons";
 
 
-const CloseIcon: IconType = FiX;
-const MenuIcon: IconType = FiMenu;
+// const CloseIcon: IconType = FiX;
+// const MenuIcon: IconType = FiMenu;
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -120,8 +120,9 @@ export default function AdminDashboard() {
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         className="lg:hidden fixed top-4 left-4 z-50 p-3 bg-gray-900 text-white rounded-lg shadow-lg"
       >
-        {mobileMenuOpen ? <CloseIcon size={24} /> : <MenuIcon size={24} />}
+        {mobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
       </button>
+
 
       {/* Sidebar */}
       <aside className={`
