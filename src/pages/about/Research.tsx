@@ -1,5 +1,4 @@
 // import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
 
 export default function Research() {
   return (
@@ -31,8 +30,6 @@ export default function Research() {
           accountable, and impactful.
         </p>
       </section>
-
-      <Footer />
     </>
   );
 }

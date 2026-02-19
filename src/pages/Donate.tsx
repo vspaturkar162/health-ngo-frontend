@@ -32,6 +32,15 @@ export default function Donate() {
         <p className="mb-10 text-gray-600">
           Your contribution helps improve the health and safety of women and children.
         </p>
+        <p className="text-gray-700 leading-relaxed mb-4 bg-gray-100 p-5 rounded-lg">
+          Your donation directly supports community-based health programmes
+          that improve access to healthcare, nutrition, and protection for
+          women, children, and adolescents in underserved communities.
+          <br />
+          Every contribution, big or small, helps strengthen sustainable
+          initiatives and enables us to reach those who need support the
+          most. Together, we can create lasting change.
+        </p>
 
         <button
           onClick={() => setOpen(true)}

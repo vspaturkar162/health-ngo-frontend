@@ -1,5 +1,4 @@
 // import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
 
 const people = [
   {
@@ -43,8 +42,6 @@ export default function People() {
           ))}
         </div>
       </section>
-
-      <Footer />
     </>
   );
 }
