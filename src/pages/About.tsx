@@ -1,6 +1,16 @@
 // import Navbar from "../components/Navbar";
+import { Link, Route } from "react-router-dom";
 import Footer from "../components/Footer";
 import OurStory from "../pages/about/OurStory";
+import HowWeWork from "./about/HowWeWork";
+import People from "./about/people";
+import Research from "./about/Research";
+<Route path="/about" element={<About />}>
+  <Route path="our-story" element={<OurStory />} />
+  <Route path="how-we-work" element={<HowWeWork />} />
+  <Route path="people" element={<People />} />
+  <Route path="research" element={<Research />} />
+</Route>
 export default function About() {
   return (
     <>
@@ -12,7 +22,34 @@ export default function About() {
           women, children and adolescents through community-based
           interventions.
         </p>
-        <OurStory/>
+        <div className="flex gap-6 mb-8 text-sm font-medium">
+          <Link
+            to="our-story"
+            className="text-blue-600 hover:underline"
+          >
+            Our Story
+          </Link>
+
+          <Link
+            to="how-we-work"
+            className="text-blue-600 hover:underline"
+          >
+            How We Work
+          </Link>
+
+          <Link
+            to="people"
+            className="text-blue-600 hover:underline"
+          >
+            People
+          </Link>
+          <Link
+            to="research"
+            className="text-blue-600 hover:underline"
+          >
+            Research & Evaluation
+          </Link>
+        </div>
       </div>
       <Footer />
     </>
