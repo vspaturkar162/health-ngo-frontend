@@ -120,8 +120,13 @@ export default function AdminDashboard() {
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         className="lg:hidden fixed top-4 left-4 z-50 p-3 bg-gray-900 text-white rounded-lg shadow-lg"
       >
-        {mobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+        {mobileMenuOpen ? (
+          <span className="text-2xl font-bold">✕</span>   
+        ) : (
+          <span className="text-2xl font-bold">☰</span>   
+        )}
       </button>
+
 
 
       {/* Sidebar */}
