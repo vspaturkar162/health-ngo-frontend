@@ -10,13 +10,13 @@ import axios from 'axios';
 
 // ✅ In production (Vercel), vercel.json proxies /api/* to Render
 // ✅ In development, use localhost:4000
-const baseURL =
-  process.env.NODE_ENV === 'production'
-    ? ''  // Empty = use relative URLs, vercel.json handles the proxy
-    : 'http://localhost:4000';
+// const baseURL =
+//   process.env.NODE_ENV === 'production'
+//     ? ''  // Empty = use relative URLs, vercel.json handles the proxy
+//     : 'http://localhost:4000';
 
 const api = axios.create({
-  baseURL,
+  baseURL: process.env.REACT_APP_API_URL,
   withCredentials: true,
   timeout: 15000,
 });
