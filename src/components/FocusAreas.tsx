@@ -133,7 +133,7 @@ export default function FocusAreas() {
               <div
                 className={`w-14 h-14 ${area.bg} rounded-2xl flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition-transform duration-300`}
               >
-                {area.icon}
+                {/* {area.icon} */}
               </div>
 
               <h3 className="text-lg font-semibold text-[#0d2d3a] mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>

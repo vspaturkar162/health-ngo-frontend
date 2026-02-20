@@ -155,13 +155,7 @@ export default function Footer() {
               <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-white transition-colors">Terms of Use</a>
               <a href="#" className="hover:text-white transition-colors">Sitemap</a>
-              <a href="/volunteer">Volunteer</a>
               <a href="/blog">Blog</a>
-               <li>
-               <a href="/crisis-helpline" className="hover:underline">
-                 Crisis Helpline
-               </a>
-             </li>
             </div>
           </div>
         </div>
