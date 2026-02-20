@@ -225,7 +225,7 @@ export default function Contact() {
                 className="flex items-start gap-4 bg-white border border-gray-100 rounded-xl p-5"
               >
                 <div className="w-10 h-10 bg-[#e6f5f3] rounded-xl flex items-center justify-center text-[#0f7b6c] flex-shrink-0">
-                  {item.icon}
+                  
                 </div>
                 <div>
                   <p className="text-xs font-semibold text-[#5a7570] uppercase tracking-wide mb-0.5">
