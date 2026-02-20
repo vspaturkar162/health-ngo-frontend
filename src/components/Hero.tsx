@@ -78,8 +78,7 @@
 //     </section>
 //   );
 // }
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState, useCallback } from "react";import { Link } from "react-router-dom";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 
 const slides = [
@@ -124,19 +123,27 @@ export default function Hero() {
   const [index, setIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
 
-  const goTo = (i: number) => {
-    if (animating) return;
-    setAnimating(true);
-    setTimeout(() => {
-      setIndex((i + slides.length) % slides.length);
-      setAnimating(false);
-    }, 300);
-  };
+  const goTo = useCallback(
+    (i: number) => {
+      if (animating) return;
+
+      setAnimating(true);
+
+      setTimeout(() => {
+        setIndex((i + slides.length) % slides.length);
+        setAnimating(false);
+      }, 300);
+    },
+    [animating]
+  );
 
   useEffect(() => {
-    const timer = setInterval(() => goTo(index + 1), 5500);
-    return () => clearInterval(timer);
-  }, [index]);
+  const timer = setInterval(() => {
+    goTo(index + 1);
+  }, 5500);
+
+  return () => clearInterval(timer);
+}, [index, goTo]);
 
   const slide = slides[index];
 

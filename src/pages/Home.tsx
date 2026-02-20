@@ -67,7 +67,7 @@ import DonateBanner from "../components/DonateBanner";
 import Footer from "../components/Footer";
 import BlogPreview from "../components/BlogPreview";
 import OurWorkPreview from "../components/OurWorkPreview";
-import Navbar from "../components/Navbar";
+
 import { Link } from "react-router-dom";
 
 export default function Home() {

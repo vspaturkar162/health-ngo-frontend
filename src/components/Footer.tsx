@@ -97,13 +97,16 @@ export default function Footer() {
             {/* Social links */}
             <div className="flex gap-2">
               {["𝕏", "in", "f", "▶"].map((icon) => (
-                <a
+                <button
                   key={icon}
-                  href="#"
-                  className="w-9 h-9 bg-white/8 rounded-xl flex items-center justify-center text-sm text-white/60 hover:bg-[#0f7b6c] hover:text-white transition-all duration-200"
+                  type="button"
+                  className="w-9 h-9 bg-white/8 rounded-xl flex items-center justify-center
+                  text-sm text-white/60 hover:bg-[#0f7b6c] hover:text-white
+                  transition-all duration-200"
+                  aria-label="Social link"
                 >
                   {icon}
-                </a>
+                </button>
               ))}
             </div>
           </div>
@@ -152,10 +155,9 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-3 text-white/30 text-xs">
             <span>© {new Date().getFullYear()} HealthForAll NGO. All rights reserved.</span>
             <div className="flex gap-5">
-              <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-white transition-colors">Terms of Use</a>
-              <a href="#" className="hover:text-white transition-colors">Sitemap</a>
-              <a href="/blog">Blog</a>
+              <a href="pages/Privacy" className="hover:text-white transition-colors">Privacy Policy</a>
+              <a href="pages/TermsConditions" className="hover:text-white transition-colors">Terms of Use</a>
+              <a href="pages/Blogs">Blog</a>
             </div>
           </div>
         </div>
