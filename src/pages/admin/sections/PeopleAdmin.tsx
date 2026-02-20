@@ -51,7 +51,7 @@ export default function PeopleAdmin() {
           <FiUsers className="opacity-80" />
           Team Management
         </h2>
-        <p className="text-purple-100 mt-2 text-sm">Manage leadership, staff, and team members</p>
+        <p className="text-purple-100 mt-2 text-sm">Manage leadership, staff and team members</p>
       </div>
 
       <div className="p-8">

@@ -53,6 +53,7 @@ export default function DonateBanner() {
         <div className="absolute -bottom-16 -left-16 w-64 h-64 rounded-full bg-white/5" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-white/[0.03]" />
       </div>
+      
 
       <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
         {/* Icon */}

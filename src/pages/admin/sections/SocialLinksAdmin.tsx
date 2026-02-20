@@ -66,13 +66,13 @@ export default function SocialLinksAdmin() {
       <div className="p-8">
         <div className="grid gap-5">
           {Object.entries(links).map(([platform, url]) => {
-            const Icon = socialIcons[platform as keyof typeof socialIcons];
+            // const Icon = socialIcons[platform as keyof typeof socialIcons];
             const color = socialColors[platform as keyof typeof socialColors];
             
             return (
               <div key={platform} className="flex items-center gap-4 group">
                 <div className={`${color} p-3 rounded-xl text-white shadow-md`}>
-                  <Icon size={20} />
+                  {/* <Icon size={20} /> */}
                 </div>
                 <div className="flex-1">
                   <label className="text-sm font-medium text-gray-700 capitalize mb-1 block">
@@ -97,7 +97,7 @@ export default function SocialLinksAdmin() {
           <h3 className="text-sm font-semibold text-gray-700 mb-3">Preview</h3>
           <div className="flex gap-3">
             {Object.entries(links).map(([platform, url]) => {
-              const Icon = socialIcons[platform as keyof typeof socialIcons];
+              // const Icon = socialIcons[platform as keyof typeof socialIcons];
               const color = socialColors[platform as keyof typeof socialColors];
               
               return (
@@ -109,7 +109,7 @@ export default function SocialLinksAdmin() {
                   className={`${color} p-3 rounded-xl text-white hover:scale-110 
                     transition-transform shadow-md hover:shadow-lg`}
                 >
-                  <Icon size={18} />
+                  {/* <Icon size={18} /> */}
                 </a>
               );
             })}

@@ -109,7 +109,7 @@ export default function VolunteersAdmin() {
                       {app.status.charAt(0).toUpperCase() + app.status.slice(1)}
                     </span>
                   </div>
-                  
+                
                   <p className="text-sm text-pink-600 mb-2">{app.role}</p>
                   
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-sm text-gray-600">

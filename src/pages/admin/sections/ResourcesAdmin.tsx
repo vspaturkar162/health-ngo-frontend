@@ -30,7 +30,7 @@ export default function ResourcesAdmin() {
           <FiBookOpen className="opacity-80" />
           Resource Library
         </h2>
-        <p className="text-emerald-100 mt-2 text-sm">Upload and manage resources, PDFs, and documents</p>
+        <p className="text-emerald-100 mt-2 text-sm">Upload and manage resources, PDFs and documents</p>
       </div>
 
       <div className="p-8">

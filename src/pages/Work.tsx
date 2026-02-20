@@ -231,7 +231,7 @@ export default function Work() {
                   {i + 1}
                 </div>
                 {/* Icon (replaces original empty circle div) */}
-                <div className="text-3xl mb-3">{item.icon}</div>
+                <div className="text-3xl mb-3"></div>
                 <h3
                   className="font-semibold text-[#0d2d3a] mb-2 text-sm"
                   style={{ fontFamily: "'Playfair Display', serif" }}

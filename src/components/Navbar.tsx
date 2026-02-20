@@ -189,7 +189,7 @@ export default function Navbar() {
             className="btn-coral text-center text-sm"
             onClick={() => setMobileOpen(false)}
           >
-            Donate Now
+            Donate Now!
           </Link>
         </div>
       )}

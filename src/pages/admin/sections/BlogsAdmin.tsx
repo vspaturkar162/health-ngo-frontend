@@ -114,7 +114,7 @@ export default function BlogsAdmin() {
           <FiEdit2 className="opacity-80" />
           Blog Management
         </h2>
-        <p className="text-blue-100 mt-2 text-sm">Create and manage your blog posts</p>
+        <p className="text-blue-100 mt-2 text-sm">Create & manage your blog posts</p>
       </div>
 
       <div className="p-8">

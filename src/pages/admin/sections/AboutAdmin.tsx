@@ -51,7 +51,7 @@ export default function AboutAdmin() {
       <div className="bg-gradient-to-r from-amber-600 to-amber-700 px-8 py-6">
         <h2 className="text-2xl font-semibold text-white flex items-center gap-3">
           <FiInfo className="opacity-80" />
-          About Pages
+          About Pages    
         </h2>
         <p className="text-amber-100 mt-2 text-sm">Manage content for About, Approach, and Impact pages</p>
       </div>

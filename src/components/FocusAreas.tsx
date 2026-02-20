@@ -161,6 +161,7 @@ export default function FocusAreas() {
           ))}
         </div>
 
+          
         {/* Bottom Banner */}
         <div className="mt-14 bg-gradient-to-r from-[#0f7b6c] to-[#18a290] rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>

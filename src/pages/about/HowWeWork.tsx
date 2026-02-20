@@ -113,7 +113,7 @@ export default function HowWeWork() {
               key={item.title}
               className={`${item.color} ${item.border} border rounded-2xl p-6 hover:-translate-y-0.5 hover:shadow-md transition-all duration-300`}
             >
-              <div className="text-3xl mb-3">{item.icon}</div>
+              <div className="text-3xl mb-3"></div>
               <h3
                 className="font-semibold text-[#0d2d3a] text-sm mb-2"
                 style={{ fontFamily: "'Playfair Display', serif" }}
