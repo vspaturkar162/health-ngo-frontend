@@ -57,7 +57,7 @@ import {
   FiX
 } from "react-icons/fi";
 import { useState } from "react";
-
+import { IconType } from "react-icons";
 import BlogsAdmin from "./sections/BlogsAdmin";
 import ResourcesAdmin from "./sections/ResourcesAdmin";
 import PeopleAdmin from "./sections/PeopleAdmin";
@@ -104,7 +104,20 @@ export default function AdminDashboard() {
     navigate("/admin");
   };
 
-  const navItems = [
+  // const navItems = [
+  //   { name: "Blogs", icon: FiFileText, ref: blogsRef, color: "from-blue-500 to-blue-600" },
+  //   { name: "Resources", icon: FiBookOpen, ref: resourcesRef, color: "from-emerald-500 to-emerald-600" },
+  //   { name: "People", icon: FiUsers, ref: peopleRef, color: "from-purple-500 to-purple-600" },
+  //   { name: "Volunteers", icon: FiHeart, ref: volunteersRef, color: "from-pink-500 to-pink-600" },
+  //   { name: "About Pages", icon: FiInfo, ref: aboutRef, color: "from-amber-500 to-amber-600" },
+  //   { name: "Social Links", icon: FiLink, ref: socialRef, color: "from-indigo-500 to-indigo-600" },
+  // ];
+  const navItems: {
+    name: string;
+    icon: IconType;
+    ref: React.RefObject<HTMLElement | null>;
+    color: string;
+  }[] = [
     { name: "Blogs", icon: FiFileText, ref: blogsRef, color: "from-blue-500 to-blue-600" },
     { name: "Resources", icon: FiBookOpen, ref: resourcesRef, color: "from-emerald-500 to-emerald-600" },
     { name: "People", icon: FiUsers, ref: peopleRef, color: "from-purple-500 to-purple-600" },
@@ -112,7 +125,6 @@ export default function AdminDashboard() {
     { name: "About Pages", icon: FiInfo, ref: aboutRef, color: "from-amber-500 to-amber-600" },
     { name: "Social Links", icon: FiLink, ref: socialRef, color: "from-indigo-500 to-indigo-600" },
   ];
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Mobile Menu Button */}
@@ -145,7 +157,7 @@ export default function AdminDashboard() {
           </div>
 
           {/* Navigation */}
-          <nav className="space-y-2">
+          {/* <nav className="space-y-2">
             {navItems.map((item) => (
               <button
                 key={item.name}
@@ -159,8 +171,28 @@ export default function AdminDashboard() {
                 </span>
               </button>
             ))}
+          </nav> */}
+          <nav className="space-y-2">
+            {navItems.map((item) => {
+              const Icon = item.icon; // ✅ Important fix
+              return (
+                <button
+                  key={item.name}
+                  onClick={() => scrollToSection(item.ref)}
+                  className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg
+                  hover:bg-white/10 transition-all duration-200 group"
+                >
+                  <Icon
+                    className="text-gray-400 group-hover:text-white transition-colors"
+                    size={20}
+                  />
+                  <span className="text-sm font-medium text-gray-300 group-hover:text-white">
+                    {item.name}
+                  </span>
+                </button>
+              );
+            })}
           </nav>
-
           {/* Logout Button */}
           <button
             onClick={handleLogout}
