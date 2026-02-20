@@ -54,7 +54,7 @@
 
 
 import { useState } from "react";
-import { FiUpload, FiImage, FiEdit2, FiTrash2 } from "react-icons/fi";
+// import { FiUpload, FiImage, FiEdit2, FiTrash2 } from "react-icons/fi";
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -111,7 +111,7 @@ export default function BlogsAdmin() {
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-8 py-6">
         <h2 className="text-2xl font-semibold text-white flex items-center gap-3">
-          <FiEdit2 className="opacity-80" />
+          {/* <FiEdit2 className="opacity-80" /> */}
           Blog Management
         </h2>
         <p className="text-blue-100 mt-2 text-sm">Create & manage your blog posts</p>
@@ -149,7 +149,7 @@ export default function BlogsAdmin() {
               />
               <button className="px-4 py-3 bg-gray-100 text-gray-600 rounded-xl hover:bg-gray-200 
                 transition-all flex items-center gap-2">
-                <FiImage size={20} />
+                {/* <FiImage size={20} /> */}
                 <span className="hidden sm:inline">Browse</span>
               </button>
             </div>
@@ -192,7 +192,7 @@ export default function BlogsAdmin() {
               transform hover:scale-[1.02] active:scale-[0.98] shadow-lg 
               hover:shadow-xl flex items-center justify-center gap-3 font-medium"
           >
-            <FiUpload size={20} />
+            {/* <FiUpload size={20} /> */}
             Publish Blog Post
           </button>
         </div>
@@ -217,7 +217,7 @@ export default function BlogsAdmin() {
                     {blog.status}
                   </span>
                   <button className="text-gray-400 hover:text-red-600 transition-colors">
-                    <FiTrash2 size={18} />
+                    {/* <FiTrash2 size={18} /> */}
                   </button>
                 </div>
               </div>

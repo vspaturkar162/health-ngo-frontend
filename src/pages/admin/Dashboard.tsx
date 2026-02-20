@@ -45,17 +45,17 @@
 
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { 
-  FiFileText, 
-  FiBookOpen, 
-  FiUsers, 
-  FiHeart, 
-  FiInfo, 
-  FiLink, 
-  FiLogOut,
-  FiMenu,
-  FiX
-} from "react-icons/fi";
+// import { 
+//   FiFileText, 
+//   FiBookOpen, 
+//   FiUsers, 
+//   FiHeart, 
+//   FiInfo, 
+//   FiLink, 
+//   FiLogOut,
+//   FiMenu,
+//   FiX
+// } from "react-icons/fi";
 import { useState } from "react";
 
 import BlogsAdmin from "./sections/BlogsAdmin";
@@ -105,12 +105,12 @@ export default function AdminDashboard() {
   };
 
   const navItems = [
-    { name: "Blogs", icon: FiFileText, ref: blogsRef, color: "from-blue-500 to-blue-600" },
-    { name: "Resources", icon: FiBookOpen, ref: resourcesRef, color: "from-emerald-500 to-emerald-600" },
-    { name: "People", icon: FiUsers, ref: peopleRef, color: "from-purple-500 to-purple-600" },
-    { name: "Volunteers", icon: FiHeart, ref: volunteersRef, color: "from-pink-500 to-pink-600" },
-    { name: "About Pages", icon: FiInfo, ref: aboutRef, color: "from-amber-500 to-amber-600" },
-    { name: "Social Links", icon: FiLink, ref: socialRef, color: "from-indigo-500 to-indigo-600" },
+    { name: "Blogs", ref: blogsRef, color: "from-blue-500 to-blue-600" },
+    { name: "Resources", ref: resourcesRef, color: "from-emerald-500 to-emerald-600" },
+    { name: "People", ref: peopleRef, color: "from-purple-500 to-purple-600" },
+    { name: "Volunteers", ref: volunteersRef, color: "from-pink-500 to-pink-600" },
+    { name: "About Pages", ref: aboutRef, color: "from-amber-500 to-amber-600" },
+    { name: "Social Links", ref: socialRef, color: "from-indigo-500 to-indigo-600" },
   ];
   // const navItems: {
   //   name: string;

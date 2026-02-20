@@ -35,7 +35,7 @@
 // }
 
 
-import { FiInfo, FiSave, FiEye, FiEdit3 } from "react-icons/fi";
+// import { FiInfo, FiSave, FiEye, FiEdit3 } from "react-icons/fi";
 import { useState } from "react";
 
 export default function AboutAdmin() {
@@ -50,7 +50,7 @@ export default function AboutAdmin() {
     <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
       <div className="bg-gradient-to-r from-amber-600 to-amber-700 px-8 py-6">
         <h2 className="text-2xl font-semibold text-white flex items-center gap-3">
-          <FiInfo className="opacity-80" />
+          {/* <FiInfo className="opacity-80" /> */}
           About Pages    
         </h2>
         <p className="text-amber-100 mt-2 text-sm">Manage content for About, Approach, and Impact pages</p>
@@ -62,11 +62,11 @@ export default function AboutAdmin() {
           <div className="bg-gray-50 rounded-xl p-5">
             <div className="flex items-center justify-between mb-3">
               <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                <FiEdit3 className="text-amber-600" />
+                {/* <FiEdit3 className="text-amber-600" /> */}
                 Our Story
               </label>
               <button className="text-sm text-amber-600 hover:text-amber-700 flex items-center gap-1">
-                <FiEye size={16} />
+                {/* <FiEye size={16} /> */}
                 Preview
               </button>
             </div>
@@ -84,7 +84,7 @@ export default function AboutAdmin() {
           <div className="bg-gray-50 rounded-xl p-5">
             <div className="flex items-center justify-between mb-3">
               <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                <FiEdit3 className="text-amber-600" />
+                {/* <FiEdit3 className="text-amber-600" /> */}
                 How We Work
               </label>
             </div>
@@ -102,7 +102,7 @@ export default function AboutAdmin() {
           <div className="bg-gray-50 rounded-xl p-5">
             <div className="flex items-center justify-between mb-3">
               <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                <FiEdit3 className="text-amber-600" />
+                {/* <FiEdit3 className="text-amber-600" /> */}
                 Research & Evaluation
               </label>
             </div>
@@ -120,7 +120,7 @@ export default function AboutAdmin() {
           <div className="bg-gray-50 rounded-xl p-5">
             <div className="flex items-center justify-between mb-3">
               <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                <FiEdit3 className="text-amber-600" />
+                {/* <FiEdit3 className="text-amber-600" /> */}
                 Reach & Impact
               </label>
             </div>
@@ -140,7 +140,7 @@ export default function AboutAdmin() {
               transform hover:scale-[1.02] active:scale-[0.98] shadow-lg 
               hover:shadow-xl flex items-center justify-center gap-3 font-medium"
           >
-            <FiSave size={20} />
+            {/* <FiSave size={20} /> */}
             Save All Changes
           </button>
         </div>

@@ -14,7 +14,7 @@
 
 
 
-import { FiHeart, FiCheckCircle, FiXCircle, FiClock, FiMail, FiPhone, FiMapPin } from "react-icons/fi";
+// import { FiHeart, FiCheckCircle, FiXCircle, FiClock, FiMail, FiPhone, FiMapPin } from "react-icons/fi";
 
 export default function VolunteersAdmin() {
   const applications = [
@@ -61,9 +61,9 @@ export default function VolunteersAdmin() {
 
   const getStatusIcon = (status: string) => {
     switch(status) {
-      case 'approved': return <FiCheckCircle className="text-green-600" size={16} />;
-      case 'pending': return <FiClock className="text-yellow-600" size={16} />;
-      case 'reviewed': return <FiCheckCircle className="text-blue-600" size={16} />;
+      case 'approved': return <h6 className="text-green-600" >✓</h6>;
+      case 'pending': return <h6 className="text-yellow-600">⏳</h6>;
+      case 'reviewed': return <h6 className="text-blue-600">⏳</h6>;
       default: return null;
     }
   };
@@ -72,7 +72,7 @@ export default function VolunteersAdmin() {
     <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
       <div className="bg-gradient-to-r from-pink-600 to-pink-700 px-8 py-6">
         <h2 className="text-2xl font-semibold text-white flex items-center gap-3">
-          <FiHeart className="opacity-80" />
+          {/* <FiHeart className="opacity-80" /> */}
           Volunteer Applications
         </h2>
         <p className="text-pink-100 mt-2 text-sm">Review and manage volunteer applications</p>
@@ -114,15 +114,15 @@ export default function VolunteersAdmin() {
                   
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-sm text-gray-600">
                     <div className="flex items-center gap-2">
-                      <FiMail size={14} className="text-gray-400" />
+                      {/* <FiMail size={14} className="text-gray-400" /> */}
                       <span>{app.email}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <FiPhone size={14} className="text-gray-400" />
+                      {/* <FiPhone size={14} className="text-gray-400" /> */}
                       <span>{app.phone}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <FiMapPin size={14} className="text-gray-400" />
+                      {/* <FiMapPin size={14} className="text-gray-400" /> */}
                       <span>{app.location}</span>
                     </div>
                   </div>
@@ -133,12 +133,12 @@ export default function VolunteersAdmin() {
                 <div className="flex gap-2">
                   <button className="px-4 py-2 bg-green-600 text-white rounded-lg 
                     hover:bg-green-700 transition-all text-sm font-medium flex items-center gap-1">
-                    <FiCheckCircle size={16} />
+                    {/* <FiCheckCircle size={16} /> */}
                     Approve
                   </button>
                   <button className="px-4 py-2 bg-red-600 text-white rounded-lg 
                     hover:bg-red-700 transition-all text-sm font-medium flex items-center gap-1">
-                    <FiXCircle size={16} />
+                    {/* <FiXCircle size={16} /> */}
                     Reject
                   </button>
                 </div>
@@ -160,20 +160,3 @@ export default function VolunteersAdmin() {
 
 
 
-// export default function VolunteersAdmin() {
-//   return (
-//     <section className="mb-10 bg-white p-6 rounded shadow">
-//       <h2 className="text-xl font-semibold mb-2">Volunteer Applications</h2>
-//       <p className="text-sm text-gray-600 mb-4">
-//         Review volunteer applications and manage approvals.
-//       </p>
-
-//       <button
-//         onClick={() => alert("error")}
-//         className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition"
-//       >
-//         View Applications
-//       </button>
-//     </section>
-//   );
-// }

@@ -25,7 +25,8 @@
 
 
 
-import { FiLink, FiFacebook, FiTwitter, FiInstagram, FiLinkedin, FiYoutube, FiSave } from "react-icons/fi";
+// import { FiLink, FiFacebook, FiTwitter, FiInstagram, FiLinkedin, FiYoutube, FiSave } from "react-icons/fi";
+import { icons } from "lucide-react";
 import { useState } from "react";
 
 export default function SocialLinksAdmin() {
@@ -37,13 +38,13 @@ export default function SocialLinksAdmin() {
     youtube: "https://youtube.com/healthforall"
   });
 
-  const socialIcons = {
-    facebook: FiFacebook,
-    twitter: FiTwitter,
-    instagram: FiInstagram,
-    linkedin: FiLinkedin,
-    youtube: FiYoutube
-  };
+  // const socialIcons = {
+  //   facebook: icons.,
+  //   twitter: FiTwitter,
+  //   instagram: FiInstagram,
+  //   linkedin: FiLinkedin,
+  //   youtube: FiYoutube
+  // };
 
   const socialColors = {
     facebook: "bg-blue-600",
@@ -57,7 +58,7 @@ export default function SocialLinksAdmin() {
     <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
       <div className="bg-gradient-to-r from-indigo-600 to-indigo-700 px-8 py-6">
         <h2 className="text-2xl font-semibold text-white flex items-center gap-3">
-          <FiLink className="opacity-80" />
+          {/* <FiLink className="opacity-80" /> */}
           Social Media Links
         </h2>
         <p className="text-indigo-100 mt-2 text-sm">Manage your social media presence</p>
@@ -122,7 +123,7 @@ export default function SocialLinksAdmin() {
             transition-all transform hover:scale-[1.02] active:scale-[0.98] 
             shadow-lg hover:shadow-xl font-medium flex items-center justify-center gap-2"
         >
-          <FiSave size={20} />
+          {/* <FiSave size={20} /> */}
           Update Social Links
         </button>
       </div>

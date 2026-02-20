@@ -14,7 +14,7 @@
 
 
 
-import { FiUsers, FiUserPlus, FiEdit2, FiTrash2, FiMail, FiPhone } from "react-icons/fi";
+// import { FiUsers, FiUserPlus, FiEdit2, FiTrash2, FiMail, FiPhone } from "react-icons/fi";
 
 export default function PeopleAdmin() {
   const teamMembers = [
@@ -48,7 +48,7 @@ export default function PeopleAdmin() {
     <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
       <div className="bg-gradient-to-r from-purple-600 to-purple-700 px-8 py-6">
         <h2 className="text-2xl font-semibold text-white flex items-center gap-3">
-          <FiUsers className="opacity-80" />
+          {/* <FiUsers className="opacity-80" /> */}
           Team Management
         </h2>
         <p className="text-purple-100 mt-2 text-sm">Manage leadership, staff and team members</p>
@@ -60,7 +60,7 @@ export default function PeopleAdmin() {
           text-white px-6 py-3 rounded-xl hover:from-purple-700 hover:to-purple-800 
           transition-all transform hover:scale-[1.02] active:scale-[0.98] 
           shadow-lg hover:shadow-xl font-medium flex items-center gap-2">
-          <FiUserPlus size={20} />
+          {/* <FiUserPlus size={20} /> */}
           Add New Team Member
         </button>
 
@@ -91,20 +91,20 @@ export default function PeopleAdmin() {
                 </div>
                 <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                   <button className="p-2 hover:bg-white rounded-lg">
-                    <FiEdit2 className="text-gray-500" size={16} />
+                    {/* <FiEdit2 className="text-gray-500" size={16} /> */}
                   </button>
                   <button className="p-2 hover:bg-white rounded-lg">
-                    <FiTrash2 className="text-red-500" size={16} />
+                    {/* <FiTrash2 className="text-red-500" size={16} /> */}
                   </button>
                 </div>
               </div>
               <div className="space-y-2 text-sm text-gray-600">
                 <div className="flex items-center gap-2">
-                  <FiMail size={14} className="text-gray-400" />
+                  {/* <FiMail size={14} className="text-gray-400" /> */}
                   <span>{member.email}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <FiPhone size={14} className="text-gray-400" />
+                  {/* <FiPhone size={14} className="text-gray-400" /> */}
                   <span>{member.phone}</span>
                 </div>
               </div>

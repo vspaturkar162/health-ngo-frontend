@@ -14,7 +14,7 @@
 
 
 
-import { FiBookOpen, FiUpload, FiFile, FiDownload, FiTrash2 } from "react-icons/fi";
+// import { FiBookOpen, FiUpload, FiFile, FiDownload, FiTrash2 } from "react-icons/fi";
 
 export default function ResourcesAdmin() {
   const recentResources = [
@@ -27,7 +27,7 @@ export default function ResourcesAdmin() {
     <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
       <div className="bg-gradient-to-r from-emerald-600 to-emerald-700 px-8 py-6">
         <h2 className="text-2xl font-semibold text-white flex items-center gap-3">
-          <FiBookOpen className="opacity-80" />
+          {/* <FiBookOpen className="opacity-80" /> */}
           Resource Library
         </h2>
         <p className="text-emerald-100 mt-2 text-sm">Upload and manage resources, PDFs and documents</p>
@@ -38,7 +38,7 @@ export default function ResourcesAdmin() {
         <div className="border-2 border-dashed border-gray-300 rounded-2xl p-8 mb-8 
           hover:border-emerald-500 transition-all group cursor-pointer">
           <div className="text-center">
-            <FiUpload className="mx-auto text-4xl text-gray-400 group-hover:text-emerald-500 mb-3" />
+            {/* <FiUpload className="mx-auto text-4xl text-gray-400 group-hover:text-emerald-500 mb-3" /> */}
             <p className="text-gray-600 font-medium">Drag & drop files here or click to browse</p>
             <p className="text-sm text-gray-500 mt-1">Supports PDF, DOC, DOCX, PPT (Max 10MB)</p>
           </div>
@@ -50,7 +50,7 @@ export default function ResourcesAdmin() {
             <button key={category} 
               className="p-4 bg-gray-50 rounded-xl hover:bg-emerald-50 
                 transition-all text-left group">
-              <FiFile className="text-emerald-600 mb-2" size={20} />
+              {/* <FiFile className="text-emerald-600 mb-2" size={20} /> */}
               <h4 className="font-medium text-gray-800">{category}</h4>
               <p className="text-xs text-gray-500">12 items</p>
             </button>
@@ -66,7 +66,7 @@ export default function ResourcesAdmin() {
                 className="flex items-center justify-between p-4 bg-gray-50 rounded-xl 
                   hover:bg-gray-100 transition-all">
                 <div className="flex items-center gap-4">
-                  <FiFile className="text-emerald-600" size={24} />
+                  {/* <FiFile className="text-emerald-600" size={24} /> */}
                   <div>
                     <h4 className="font-medium text-gray-800">{resource.name}</h4>
                     <p className="text-xs text-gray-500">{resource.type} • {resource.size} • {resource.date}</p>
@@ -74,10 +74,10 @@ export default function ResourcesAdmin() {
                 </div>
                 <div className="flex items-center gap-3">
                   <button className="p-2 hover:bg-white rounded-lg transition-colors">
-                    <FiDownload className="text-gray-500" size={18} />
+                    {/* <FiDownload className="text-gray-500" size={18} /> */}
                   </button>
                   <button className="p-2 hover:bg-white rounded-lg transition-colors">
-                    <FiTrash2 className="text-red-500" size={18} />
+                    {/* <FiTrash2 className="text-red-500" size={18} /> */}
                   </button>
                 </div>
               </div>
