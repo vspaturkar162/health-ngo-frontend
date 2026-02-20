@@ -45,7 +45,15 @@ export default function AboutAdmin() {
     research: "We conduct rigorous research and evaluation to ensure our programs are effective and scalable...",
     impact: "Over 2.5L+ women reached across 80K+ communities with 22+ years of continuous impact..."
   });
+  const saveAbout = async () => {
+    await fetch(`${process.env.REACT_APP_API_URL}/about`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(aboutContent),
+    });
 
+    alert("About content updated");
+  };
   return (
     <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
       <div className="bg-gradient-to-r from-amber-600 to-amber-700 px-8 py-6">
@@ -135,6 +143,7 @@ export default function AboutAdmin() {
           </div>
 
           <button
+            onClick={saveAbout}
             className="bg-gradient-to-r from-amber-600 to-amber-700 text-white px-8 py-4 
               rounded-xl hover:from-amber-700 hover:to-amber-800 transition-all 
               transform hover:scale-[1.02] active:scale-[0.98] shadow-lg 

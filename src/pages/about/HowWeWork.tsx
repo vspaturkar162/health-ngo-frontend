@@ -36,7 +36,7 @@
 // }
 
 // import Navbar from "../../components/Navbar";
-
+import { useEffect, useState } from "react";
 const approach = [
   {
     icon: "🤝",
@@ -69,6 +69,13 @@ const approach = [
 ];
 
 export default function HowWeWork() {
+  const [content, setContent] = useState("");
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}/about`)
+      .then(res => res.json())
+      .then(data => setContent(data?.howWeWork || ""));
+  }, []);
   return (
     <>
       {/* <Navbar /> */}
@@ -89,7 +96,7 @@ export default function HowWeWork() {
           </h1>
           <div className="w-16 h-1 bg-gradient-to-r from-[#0f7b6c] to-[#18a290] rounded-full" />
         </div>
-
+        <p>{content}</p>
         {/* Intro text */}
         <p className="text-[#3a5550] leading-[1.85] text-base mb-10 max-w-3xl">
           Our approach is rooted in community engagement, evidence-based

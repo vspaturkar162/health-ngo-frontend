@@ -57,8 +57,15 @@
 // }
 
 // import Navbar from "../../components/Navbar";
-
+import { useEffect, useState } from "react";
 export default function OurStory() {
+  const [story, setStory] = useState("");
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}/about`)
+      .then(res => res.json())
+      .then(data => setStory(data?.story || ""));
+  }, []);
   return (
     <>
       {/* <Navbar /> */}
@@ -79,6 +86,7 @@ export default function OurStory() {
               Community's Need
             </em>
           </h1>
+          <h2 className="text-lg text-[#3a5550] leading-relaxed">{story}</h2>
           <div className="w-16 h-1 bg-gradient-to-r from-[#0f7b6c] to-[#18a290] rounded-full" />
         </div>
 
