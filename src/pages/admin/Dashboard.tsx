@@ -199,9 +199,9 @@ export default function AdminDashboard() {
             className="absolute bottom-8 left-8 right-8 flex items-center space-x-3 px-4 py-3 
               bg-red-600/20 hover:bg-red-600/30 rounded-lg transition-all duration-200 group"
           >
-            <FiLogOut className="text-red-400 group-hover:text-red-300" size={20} />
+            {/* <FiLogOut className="text-red-400 group-hover:text-red-300" size={20} /> */}
             <span className="text-sm font-medium text-red-400 group-hover:text-red-300">
-              Logout
+              🔙 Logout
             </span>
           </button>
         </div>
