@@ -59,8 +59,21 @@ export default function Volunteer() {
     message: ""
   });
 
-  const submit = () => {
-    alert("Volunteer application submitted!");
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/volunteers`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form)
+    });
+
+    if (res.ok) {
+      alert("Application submitted successfully!");
+      setForm({ name: "", email: "", phone: "", message: "" });
+    } else {
+      alert("Submission failed");
+    }
   };
 
   return (
@@ -95,7 +108,7 @@ export default function Volunteer() {
             { icon: "📜", label: "Certification Provided" },
           ].map((item) => (
             <div key={item.label} className="text-center">
-              <div className="text-2xl mb-1">{item.icon}</div>
+              <div className="text-2xl mb-1"></div>
               <p className="text-xs font-medium text-[#5a7570]">{item.label}</p>
             </div>
           ))}
@@ -129,7 +142,7 @@ export default function Volunteer() {
                   key={item.role}
                   className="flex items-center gap-4 bg-white border border-gray-100 rounded-xl p-4 hover:-translate-x-0.5 hover:shadow-sm transition-all duration-200"
                 >
-                  <span className="text-2xl">{item.icon}</span>
+                  <span className="text-2xl"></span>
                   <div className="flex-1">
                     <p className="text-sm font-semibold text-[#0d2d3a]">{item.role}</p>
                     <p className="text-xs text-[#5a7570]">{item.commitment}</p>
@@ -188,6 +201,7 @@ export default function Volunteer() {
                 </div>
 
                 <button
+                  type = "submit"
                   onClick={submit}
                   className="w-full bg-[#0f7b6c] text-white font-semibold py-3.5 rounded-xl hover:bg-[#0a6358] hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200"
                 >
