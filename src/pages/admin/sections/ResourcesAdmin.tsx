@@ -15,82 +15,144 @@
 
 
 // import { FiBookOpen, FiUpload, FiFile, FiDownload, FiTrash2 } from "react-icons/fi";
+import { useEffect, useState } from "react";
+
+const API = process.env.REACT_APP_API_URL;
+
+/* ✅ Correct frontend Resource interface */
+interface Resource {
+  _id: string;
+  title: string;
+  category: string;
+  date: string;
+}
 
 export default function ResourcesAdmin() {
-  const recentResources = [
-    { id: 1, name: "Annual Report 2023.pdf", type: "PDF", size: "2.4 MB", date: "2024-01-20" },
-    { id: 2, name: "Community Health Guide.docx", type: "Document", size: "1.1 MB", date: "2024-01-18" },
-    { id: 3, name: "Research Paper - Maternal Health.pdf", type: "PDF", size: "3.7 MB", date: "2024-01-15" },
-  ];
+  const [resources, setResources] = useState<Resource[]>([]);
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("Research");
+
+  /* ✅ Fetch resources */
+  useEffect(() => {
+    fetch(`${API}/resources`)
+      .then((res) => res.json())
+      .then(setResources)
+      .catch(console.error);
+  }, []);
+
+  /* ✅ Add resource */
+  const addResource = async () => {
+    if (!title.trim()) {
+      alert("Title required");
+      return;
+    }
+
+    const payload = {
+      title,
+      category,
+      date: new Date().toLocaleDateString("en-IN", {
+        month: "short",
+        year: "numeric",
+      }),
+    };
+
+    const res = await fetch(`${API}/resources`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) {
+      alert("Failed to add resource");
+      return;
+    }
+
+    const newResource: Resource = await res.json();
+    setResources((prev) => [newResource, ...prev]);
+    setTitle("");
+  };
+
+  /* ✅ Delete resource */
+  const deleteResource = async (id: string) => {
+    const ok = window.confirm("Delete this resource?");
+    if (!ok) return;
+
+    await fetch(`${API}/resources/${id}`, {
+      method: "DELETE",
+    });
+
+    setResources((prev) => prev.filter((r) => r._id !== id));
+  };
 
   return (
     <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+      {/* Header */}
       <div className="bg-gradient-to-r from-emerald-600 to-emerald-700 px-8 py-6">
-        <h2 className="text-2xl font-semibold text-white flex items-center gap-3">
-          {/* <FiBookOpen className="opacity-80" /> */}
+        <h2 className="text-2xl font-semibold text-white">
           Resource Library
         </h2>
-        <p className="text-emerald-100 mt-2 text-sm">Upload and manage resources, PDFs and documents</p>
+        <p className="text-emerald-100 mt-2 text-sm">
+          Upload and manage resources
+        </p>
       </div>
 
       <div className="p-8">
-        {/* Upload Area */}
-        <div className="border-2 border-dashed border-gray-300 rounded-2xl p-8 mb-8 
-          hover:border-emerald-500 transition-all group cursor-pointer">
-          <div className="text-center">
-            {/* <FiUpload className="mx-auto text-4xl text-gray-400 group-hover:text-emerald-500 mb-3" /> */}
-            <p className="text-gray-600 font-medium">Drag & drop files here or click to browse</p>
-            <p className="text-sm text-gray-500 mt-1">Supports PDF, DOC, DOCX, PPT (Max 10MB)</p>
-          </div>
+        {/* Add resource */}
+        <div className="grid gap-4 mb-8">
+          <input
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Resource title"
+            className="border rounded-xl px-4 py-3"
+          />
+
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className="border rounded-xl px-4 py-3"
+          >
+            <option>Research</option>
+            <option>Maternal & Child Health</option>
+            <option>Violence Prevention</option>
+          </select>
+
+          <button
+            onClick={addResource}
+            className="bg-emerald-600 text-white py-3 rounded-xl hover:bg-emerald-700 transition"
+          >
+            Add Resource
+          </button>
         </div>
 
-        {/* Categories */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          {["Research Papers", "Reports", "Guidelines"].map((category) => (
-            <button key={category} 
-              className="p-4 bg-gray-50 rounded-xl hover:bg-emerald-50 
-                transition-all text-left group">
-              {/* <FiFile className="text-emerald-600 mb-2" size={20} /> */}
-              <h4 className="font-medium text-gray-800">{category}</h4>
-              <p className="text-xs text-gray-500">12 items</p>
-            </button>
-          ))}
-        </div>
-
-        {/* Resource List */}
+        {/* Resource list */}
         <div>
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">Recent Uploads</h3>
+          <h3 className="text-lg font-semibold mb-4">Recent Uploads</h3>
+
           <div className="space-y-3">
-            {recentResources.map((resource) => (
-              <div key={resource.id} 
-                className="flex items-center justify-between p-4 bg-gray-50 rounded-xl 
-                  hover:bg-gray-100 transition-all">
-                <div className="flex items-center gap-4">
-                  {/* <FiFile className="text-emerald-600" size={24} /> */}
-                  <div>
-                    <h4 className="font-medium text-gray-800">{resource.name}</h4>
-                    <p className="text-xs text-gray-500">{resource.type} • {resource.size} • {resource.date}</p>
-                  </div>
+            {resources.map((resource) => (
+              <div
+                key={resource._id}
+                className="flex items-center justify-between p-4 bg-gray-50 rounded-xl"
+              >
+                <div>
+                  <h4 className="font-medium text-gray-800">
+                    {resource.title}
+                  </h4>
+                  <p className="text-xs text-gray-500">
+                    {resource.category} • {resource.date}
+                  </p>
                 </div>
-                <div className="flex items-center gap-3">
-                  <button className="p-2 hover:bg-white rounded-lg transition-colors">
-                    {/* <FiDownload className="text-gray-500" size={18} /> */}
-                  </button>
-                  <button className="p-2 hover:bg-white rounded-lg transition-colors">
-                    {/* <FiTrash2 className="text-red-500" size={18} /> */}
-                  </button>
-                </div>
+
+                <button
+                  onClick={() => deleteResource(resource._id)}
+                  className="text-red-600 hover:underline text-sm"
+                >
+                  Delete
+                </button>
               </div>
             ))}
           </div>
         </div>
-
-        <button className="mt-6 w-full bg-gradient-to-r from-emerald-600 to-emerald-700 
-          text-white px-6 py-3 rounded-xl hover:from-emerald-700 hover:to-emerald-800 
-          transition-all transform hover:scale-[1.02] active:scale-[0.98] 
-          shadow-lg hover:shadow-xl font-medium">
-          Add New Resource
-        </button>
       </div>
     </div>
   );

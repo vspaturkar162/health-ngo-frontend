@@ -142,7 +142,7 @@ interface Resource {
   category: string;
   date: string;
 }
-
+const API = process.env.REACT_APP_API_URL;
 export default function Resources() {
   const [resources, setResources] = useState<Resource[]>([]);
   const [filter, setFilter] = useState<string>("All");
@@ -153,7 +153,7 @@ export default function Resources() {
   useEffect(() => {
     const fetchResources = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/resources");
+        const res = await fetch(`${API}/resources`);
         if (!res.ok) {
           throw new Error("Failed to fetch resources");
         }
