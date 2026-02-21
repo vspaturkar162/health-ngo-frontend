@@ -66,23 +66,57 @@ export default function BlogsAdmin() {
     image: "",
   });
 
+  // const submit = async () => {
+  //   if (!form.title || !form.content) {
+  //     alert("Title and content are required");
+  //     return;
+  //   }
+
+  //   const payload = {
+  //     ...form,
+  //     slug: form.title.toLowerCase().replace(/\s+/g, "-"),
+  //     author: "000000000000000000000000", // temporary admin author
+  //     tags: [],
+  //   };
+
+  //   const res = await fetch(`${API}/blogs`, {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(payload),
+  //   });
+
+  //   if (!res.ok) {
+  //     alert("Failed to save blog");
+  //     return;
+  //   }
+
+  //   alert("Blog added successfully");
+
+  //   setForm({
+  //     title: "",
+  //     excerpt: "",
+  //     content: "",
+  //     image: "",
+  //   });
+  // };
   const submit = async () => {
     if (!form.title || !form.content) {
       alert("Title and content are required");
       return;
     }
 
-    const payload = {
-      ...form,
-      slug: form.title.toLowerCase().replace(/\s+/g, "-"),
-      author: "000000000000000000000000", // temporary admin author
-      tags: [],
-    };
+    const formData = new FormData();
+    formData.append("title", form.title);
+    formData.append("excerpt", form.excerpt);
+    formData.append("content", form.content);
+
+    if (imageFile) {
+      formData.append("image", imageFile);
+    }
 
     const res = await fetch(`${API}/blogs`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
+      body: formData,
     });
 
     if (!res.ok) {
@@ -90,14 +124,7 @@ export default function BlogsAdmin() {
       return;
     }
 
-    alert("Blog added successfully");
-
-    setForm({
-      title: "",
-      excerpt: "",
-      content: "",
-      image: "",
-    });
+    alert("Blog published");
   };
 
   // Sample recent blogs (you can replace with actual data)
@@ -105,7 +132,7 @@ export default function BlogsAdmin() {
     { id: 1, title: "Community Health Initiatives", status: "Published", date: "2024-01-15" },
     { id: 2, title: "Women Empowerment Programs", status: "Draft", date: "2024-01-10" },
   ];
-
+  const [imageFile, setImageFile] = useState<File | null>(null);
   return (
     <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
       {/* Header */}
@@ -136,17 +163,29 @@ export default function BlogsAdmin() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Featured Image URL
+              Featured Image
             </label>
             <div className="flex gap-3">
               <input
-                placeholder="https://example.com/image.jpg"
+                type="file"
+                accept="image/*"
+                placeholder="Uplaod Image"
                 className="flex-1 border border-gray-200 rounded-xl px-5 py-3 
                   focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
                   transition-all bg-gray-50 hover:bg-white"
                 value={form.image}
-                onChange={(e) => setForm({ ...form, image: e.target.value })}
+                onChange={(e) => {
+                  if (e.target.files && e.target.files[0]) {
+                    setImageFile(e.target.files[0]);
+                  }
+                }}
               />
+              {imageFile && (
+                  <p className="text-xs text-gray-500 mt-2">
+                    Selected: {imageFile.name}
+                  </p>
+                )}
+              </div>
               <button className="px-4 py-3 bg-gray-100 text-gray-600 rounded-xl hover:bg-gray-200 
                 transition-all flex items-center gap-2">
                 {/* <FiImage size={20} /> */}
@@ -225,8 +264,7 @@ export default function BlogsAdmin() {
           </div>
         </div>
       </div>
-    </div>
-  );
+);
 }
 
 
