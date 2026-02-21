@@ -47,42 +47,55 @@
 // }
 
 // import Navbar from "../../components/Navbar";
+import { useEffect, useState } from "react";
 
-const people = [
-  {
-    name: "Dr. Armida Fernandez",
-    role: "Founder",
-    description:
-      "A paediatrician and public health expert with decades of experience working with vulnerable communities.",
+const API = process.env.REACT_APP_API_URL;
+
+/* ✅ Backend person type */
+interface Person {
+  _id: string;
+  name: string;
+  role: string;
+  department: string;
+}
+
+/* ✅ UI-mapping helper (keeps your design intact) */
+const departmentUI: Record<string, { emoji: string; accent: string; bg: string }> = {
+  Leadership: {
     emoji: "👩‍⚕️",
     accent: "#0f7b6c",
     bg: "bg-[#e6f5f3]",
   },
-  {
-    name: "Programme Team",
-    role: "Implementation & Outreach",
-    description:
-      "Dedicated professionals working directly with communities to deliver health and protection services.",
+  Programs: {
     emoji: "🤝",
     accent: "#0f4f7b",
     bg: "bg-[#e6eef5]",
   },
-  {
-    name: "Research & Advocacy Team",
-    role: "Evidence & Policy",
-    description:
-      "Researchers and advocates driving evidence-based practice and systemic change.",
+  Research: {
     emoji: "📊",
     accent: "#6b0f7b",
     bg: "bg-[#f3e6f5]",
   },
-];
+  Operations: {
+    emoji: "⚙️",
+    accent: "#7b4f0f",
+    bg: "bg-[#f5efe6]",
+  },
+};
 
 export default function People() {
+  const [people, setPeople] = useState<Person[]>([]);
+
+  /* ✅ FETCH FROM BACKEND */
+  useEffect(() => {
+    fetch(`${API}/people`)
+      .then((res) => res.json())
+      .then(setPeople)
+      .catch(() => setPeople([]));
+  }, []);
+
   return (
     <>
-      {/* <Navbar /> */}
-
       <section className="py-16 max-w-6xl mx-auto px-6">
 
         {/* Heading */}
@@ -104,49 +117,55 @@ export default function People() {
           </p>
         </div>
 
-        {/* Cards grid — original 3 items, upgraded styling */}
+        {/* Cards grid */}
         <div className="grid md:grid-cols-3 gap-7">
-          {people.map((p) => (
-            <div
-              key={p.name}
-              className="group bg-white border border-gray-100 rounded-2xl p-7 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 relative overflow-hidden"
-            >
-              {/* Top accent bar on hover */}
+          {people.map((p) => {
+            const ui = departmentUI[p.department] || departmentUI.Leadership;
+
+            return (
               <div
-                className="absolute top-0 left-0 right-0 h-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-2xl"
-                style={{ background: `linear-gradient(to right, ${p.accent}, ${p.accent}88)` }}
-              />
+                key={p._id}
+                className="group bg-white border border-gray-100 rounded-2xl p-7 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 relative overflow-hidden"
+              >
+                {/* Top accent bar */}
+                <div
+                  className="absolute top-0 left-0 right-0 h-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-2xl"
+                  style={{ background: `linear-gradient(to right, ${ui.accent}, ${ui.accent}88)` }}
+                />
 
-              {/* Icon */}
-              <div className={`w-14 h-14 ${p.bg} rounded-2xl flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition-transform duration-300`}>
-                {p.emoji}
+                {/* Icon */}
+                <div
+                  className={`w-14 h-14 ${ui.bg} rounded-2xl flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition-transform duration-300`}
+                >
+                  {ui.emoji}
+                </div>
+
+                {/* Name */}
+                <h3
+                  className="font-semibold text-[#0d2d3a] text-lg mb-1"
+                  style={{ fontFamily: "'Playfair Display', serif" }}
+                >
+                  {p.name}
+                </h3>
+
+                {/* Role */}
+                <p
+                  className="text-sm font-medium mb-3"
+                  style={{ color: ui.accent }}
+                >
+                  {p.role}
+                </p>
+
+                {/* Description */}
+                <p className="text-sm text-[#5a7570] leading-relaxed">
+                  {p.department} Team Member
+                </p>
               </div>
-
-              {/* Name */}
-              <h3
-                className="font-semibold text-[#0d2d3a] text-lg mb-1"
-                style={{ fontFamily: "'Playfair Display', serif" }}
-              >
-                {p.name}
-              </h3>
-
-              {/* Role — kept original blue-ish color, mapped to accent */}
-              <p
-                className="text-sm font-medium mb-3"
-                style={{ color: p.accent }}
-              >
-                {p.role}
-              </p>
-
-              {/* Description */}
-              <p className="text-sm text-[#5a7570] leading-relaxed">
-                {p.description}
-              </p>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
-        {/* Join the team strip */}
+        {/* Join strip */}
         <div className="mt-12 bg-[#e6f5f3] rounded-2xl p-7 flex flex-col md:flex-row items-center justify-between gap-5 border border-[#0f7b6c]/10">
           <div>
             <h3

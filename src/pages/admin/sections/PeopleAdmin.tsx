@@ -1,48 +1,68 @@
-// export default function PeopleAdmin() {
-//   return (
-//     <section className="mb-10">
-//       <h2 className="text-xl font-semibold mb-2">People & Team</h2>
-//       <p className="text-sm text-gray-600 mb-4">
-//         Update leadership, staff, advisors and team members.
-//       </p>
-//       <button className="px-4 py-2 bg-green-600 text-white rounded">
-//         Add Person
-//       </button>
-//     </section>
-//   );
-// }
+import { useEffect, useState } from "react";
+const API = process.env.REACT_APP_API_URL;
 
-
-
-// import { FiUsers, FiUserPlus, FiEdit2, FiTrash2, FiMail, FiPhone } from "react-icons/fi";
-
+interface Person {
+  _id: string;
+  name: string;
+  role: string;
+  department: string;
+  email?: string;
+  phone?: string;
+}
 export default function PeopleAdmin() {
-  const teamMembers = [
-    { 
-      id: 1, 
-      name: "Dr. Sarah Johnson", 
-      role: "Executive Director", 
+  const [people, setPeople] = useState<Person[]>([]);
+  const [filter, setFilter] = useState("All");
+
+  const [form, setForm] = useState({
+    name: "",
+    role: "",
+    department: "Leadership",
+    email: "",
+    phone: "",
+  });
+
+  useEffect(() => {
+    fetch(`${API}/people`)
+      .then(res => res.json())
+      .then(setPeople);
+  }, []);
+  const addPerson = async () => {
+    if (!form.name || !form.role) {
+      alert("Name and role required");
+      return;
+    }
+
+    const res = await fetch(`${API}/people`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
+
+    const newPerson = await res.json();
+    setPeople(prev => [newPerson, ...prev]);
+    setForm({
+      name: "",
+      role: "",
       department: "Leadership",
-      email: "sarah@healthforall.org",
-      phone: "+1 234 567 890"
-    },
-    { 
-      id: 2, 
-      name: "Michael Chen", 
-      role: "Head of Programs", 
-      department: "Programs",
-      email: "michael@healthforall.org",
-      phone: "+1 234 567 891"
-    },
-    { 
-      id: 3, 
-      name: "Priya Patel", 
-      role: "Research Lead", 
-      department: "Research",
-      email: "priya@healthforall.org",
-      phone: "+1 234 567 892"
-    },
-  ];
+      email: "",
+      phone: "",
+    });
+  };
+
+  const deletePerson = async (id: string) => {
+    const ok = window.confirm("Delete this member?");
+    if (!ok) return;
+
+    await fetch(`${API}/people/${id}`, {
+      method: "DELETE",
+    });
+    setPeople(prev => prev.filter(p => p._id !== id));
+  };
+
+  const filtered =
+    filter === "All"
+      ? people
+      : people.filter(p => p.department === filter);
 
   return (
     <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
@@ -53,10 +73,47 @@ export default function PeopleAdmin() {
         </h2>
         <p className="text-purple-100 mt-2 text-sm">Manage leadership, staff and team members</p>
       </div>
+      {/* FORM */}
+        <div className="grid gap-4 mb-8">
+          <input
+            placeholder="Full Name"
+            value={form.name}
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            className="border px-4 py-2 rounded"
+          />
 
+          <input
+            placeholder="Role"
+            value={form.role}
+            onChange={(e) => setForm({ ...form, role: e.target.value })}
+            className="border px-4 py-2 rounded"
+          />
+          <select
+            value={form.department}
+            onChange={(e) => setForm({ ...form, department: e.target.value })}
+            className="border px-4 py-2 rounded"
+          >
+            <option>Leadership</option>
+            <option>Programs</option>
+            <option>Research</option>
+            <option>Operations</option>
+          </select>
+          <input
+            placeholder="Email"
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            className="border px-4 py-2 rounded"
+          />
+
+          <input
+            placeholder="Phone"
+            value={form.phone}
+            onChange={(e) => setForm({ ...form, phone: e.target.value })}
+            className="border px-4 py-2 rounded"
+          />
       <div className="p-8">
         {/* Add New Button */}
-        <button className="mb-6 bg-gradient-to-r from-purple-600 to-purple-700 
+        <button onClick={addPerson} className="mb-6 bg-gradient-to-r from-purple-600 to-purple-700 
           text-white px-6 py-3 rounded-xl hover:from-purple-700 hover:to-purple-800 
           transition-all transform hover:scale-[1.02] active:scale-[0.98] 
           shadow-lg hover:shadow-xl font-medium flex items-center gap-2">
@@ -68,8 +125,11 @@ export default function PeopleAdmin() {
         <div className="flex gap-2 mb-6 flex-wrap">
           {["All", "Leadership", "Programs", "Research", "Operations"].map((dept) => (
             <button key={dept} 
-              className="px-4 py-2 rounded-full text-sm font-medium transition-all
-                bg-gray-100 text-gray-600 hover:bg-purple-600 hover:text-white">
+            onClick={() => setFilter(dept)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all
+                bg-gray-100 text-gray-600 hover:bg-purple-600 hover:text-white${filter === dept
+                  ? "bg-purple-600 text-white"
+                  : "bg-gray-100"}`}>
               {dept}
             </button>
           ))}
@@ -77,8 +137,8 @@ export default function PeopleAdmin() {
 
         {/* Team Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {teamMembers.map((member) => (
-            <div key={member.id} 
+          {filtered.map((member) => (
+            <div key={member._id} 
               className="bg-gray-50 rounded-xl p-5 hover:shadow-md transition-all 
                 border border-gray-100 hover:border-purple-200 group">
               <div className="flex justify-between items-start mb-3">
@@ -108,30 +168,20 @@ export default function PeopleAdmin() {
                   <span>{member.phone}</span>
                 </div>
               </div>
+              <button
+                onClick={() => deletePerson(member._id)}
+                className="text-red-600 text-sm mt-2"
+              >
+                Delete
+              </button>
             </div>
           ))}
         </div>
       </div>
+    </div>
     </div>
   );
 }
 
 
 
-// export default function PeopleAdmin() {
-//   return (
-//     <section className="mb-10 bg-white p-6 rounded shadow">
-//       <h2 className="text-xl font-semibold mb-2">People & Team</h2>
-//       <p className="text-sm text-gray-600 mb-4">
-//         Update leadership, staff, advisors and team members.
-//       </p>
-
-//       <button
-//         onClick={() => alert("error")}
-//         className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition"
-//       >
-//         Add Person
-//       </button>
-//     </section>
-//   );
-// }
