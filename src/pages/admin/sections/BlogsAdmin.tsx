@@ -53,7 +53,7 @@
 
 
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import { FiUpload, FiImage, FiEdit2, FiTrash2 } from "react-icons/fi";
 
 const API = process.env.REACT_APP_API_URL;
@@ -124,14 +124,32 @@ export default function BlogsAdmin() {
       return;
     }
 
-    alert("Blog published");
+    const newBlog = await res.json();
+
+      setBlogs((prev) => [newBlog, ...prev]);
+
+      alert("Blog published");
+
+      setForm({
+        title: "",
+        excerpt: "",
+        content: "",
+        image: "",
+      });
+      setImageFile(null);
   };
 
   // Sample recent blogs (you can replace with actual data)
-  const recentBlogs = [
-    { id: 1, title: "Community Health Initiatives", status: "Published", date: "2024-01-15" },
-    { id: 2, title: "Women Empowerment Programs", status: "Draft", date: "2024-01-10" },
-  ];
+  // const recentBlogs = [
+  //   { id: 1, title: "Community Health Initiatives", status: "Published", date: "2024-01-15" },
+  //   { id: 2, title: "Women Empowerment Programs", status: "Draft", date: "2024-01-10" },
+  // ];
+  const [blogs, setBlogs] = useState<any[]>([]);
+  useEffect(() => {
+  fetch(`${API}/blogs`)
+    .then(res => res.json())
+    .then(setBlogs);
+}, []);
   const [imageFile, setImageFile] = useState<File | null>(null);
   return (
     <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
@@ -173,7 +191,6 @@ export default function BlogsAdmin() {
                 className="flex-1 border border-gray-200 rounded-xl px-5 py-3 
                   focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
                   transition-all bg-gray-50 hover:bg-white"
-                value={form.image}
                 onChange={(e) => {
                   if (e.target.files && e.target.files[0]) {
                     setImageFile(e.target.files[0]);
@@ -237,32 +254,55 @@ export default function BlogsAdmin() {
         </div>
 
         {/* Recent Blogs */}
-        <div className="border-t pt-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">Recent Blog Posts</h3>
-          <div className="space-y-3">
-            {recentBlogs.map((blog) => (
-              <div key={blog.id} 
-                className="flex items-center justify-between p-4 bg-gray-50 rounded-xl 
-                  hover:bg-gray-100 transition-all group">
-                <div>
-                  <h4 className="font-medium text-gray-800">{blog.title}</h4>
-                  <p className="text-sm text-gray-500">{blog.date}</p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className={`text-xs px-3 py-1 rounded-full font-medium
-                    ${blog.status === 'Published' 
-                      ? 'bg-green-100 text-green-700' 
-                      : 'bg-yellow-100 text-yellow-700'}`}>
-                    {blog.status}
-                  </span>
-                  <button className="text-gray-400 hover:text-red-600 transition-colors">
-                    {/* <FiTrash2 size={18} /> */}
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
+        {/* Blog List */}
+<div className="border-t pt-6">
+  <h3 className="text-lg font-semibold text-gray-800 mb-4">
+    All Blog Posts
+  </h3>
+
+  <div className="space-y-3">
+    {blogs.map((blog) => (
+      <div
+        key={blog._id}
+        className="flex items-center justify-between p-4 bg-gray-50 rounded-xl 
+        hover:bg-gray-100 transition-all group"
+      >
+        <div>
+          <h4 className="font-medium text-gray-800">
+            {blog.title}
+          </h4>
+          <p className="text-sm text-gray-500">
+            {new Date(blog.createdAt).toLocaleDateString()}
+          </p>
         </div>
+
+        <button
+          onClick={async () => {
+            const confirmDelete = window.confirm(
+              "Are you sure you want to delete this blog?"
+            );
+            if (!confirmDelete) return;
+
+            const res = await fetch(`${API}/blogs/${blog._id}`, {
+              method: "DELETE",
+            });
+
+            if (res.ok) {
+              setBlogs((prev) =>
+                prev.filter((b) => b._id !== blog._id)
+              );
+            } else {
+              alert("Failed to delete blog");
+            }
+          }}
+          className="text-red-600 hover:text-red-800 text-sm font-medium"
+        >
+          Delete
+        </button>
+      </div>
+    ))}
+  </div>
+</div>
       </div>
 );
 }
