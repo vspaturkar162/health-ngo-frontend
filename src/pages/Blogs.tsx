@@ -75,7 +75,7 @@ export default function Blogs() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${API}/api/blogs`)
+    fetch(`${API}/blogs`)
       .then((res) => res.json())
       .then((data) => {
         setBlogs(data);

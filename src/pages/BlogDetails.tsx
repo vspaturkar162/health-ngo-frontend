@@ -79,13 +79,13 @@ interface Blog {
 export default function BlogDetail() {
   const { id } = useParams();
   const [blog, setBlog] = useState<Blog | null>(null);
+  const API = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
-    fetch(`http://localhost:4000/api/blogs/${id}`)
+    fetch(`${API}/blogs/${id}`)
       .then((res) => res.json())
       .then(setBlog);
-  }, [id]);
-
+  }, [id, API]);
   if (!blog)
     return (
       <div className="min-h-[60vh] flex items-center justify-center">

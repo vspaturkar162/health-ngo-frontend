@@ -35,7 +35,7 @@
 // }
 
 // import Navbar from "../../components/Navbar";
-
+import { useEffect, useState } from "react";
 const activities = [
   {
     icon: "🔬",
@@ -64,6 +64,13 @@ const activities = [
 ];
 
 export default function Research() {
+  const [content, setContent] = useState("");
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}/about`)
+      .then(res => res.json())
+      .then(data => setContent(data?.research || ""));
+  }, []);
   return (
     <>
       {/* <Navbar /> */}
@@ -84,6 +91,7 @@ export default function Research() {
               Evaluation
             </em>
           </h1>
+          <p>{content}</p>;
           <div className="w-16 h-1 bg-gradient-to-r from-[#0f7b6c] to-[#18a290] rounded-full" />
         </div>
 
