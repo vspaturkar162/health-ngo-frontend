@@ -58,7 +58,7 @@ export default function EventsAdmin() {
 
     const newEvent: EventItem = await res.json();
     setEvents((prev) => [newEvent, ...prev]);
-
+    alert("Event added successfully");
     setTitle("");
     setDescription("");
     setLocation("");
@@ -79,6 +79,7 @@ export default function EventsAdmin() {
     });
 
     setEvents((prev) => prev.filter((e) => e._id !== id));
+    alert("Event deleted successfully");
   };
 
   return (
