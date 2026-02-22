@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 const API = process.env.REACT_APP_API_URL;
-
+const token = localStorage.getItem("token");
 /* ✅ Event interface matching backend */
 interface EventItem {
   _id: string;
@@ -45,7 +45,9 @@ export default function EventsAdmin() {
 
     const res = await fetch(`${API}/events`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+       },
       body: JSON.stringify(payload),
     });
 
@@ -71,6 +73,9 @@ export default function EventsAdmin() {
 
     await fetch(`${API}/events/${id}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+    },
     });
 
     setEvents((prev) => prev.filter((e) => e._id !== id));
