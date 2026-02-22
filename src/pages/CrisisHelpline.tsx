@@ -159,7 +159,7 @@ export default function CrisisHelpline() {
 
   const submitRequest = async () => {
     try {
-      await fetch(`${API_URL}/api/crisis`, {
+      await fetch(`${API_URL}/crisis`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
