@@ -100,29 +100,7 @@ export default function SocialLinksAdmin() {
           })}
         </div>
 
-        {/* Preview Section */}
-        <div className="mt-8 p-5 bg-gray-50 rounded-xl">
-          <h3 className="text-sm font-semibold text-gray-700 mb-3">Preview</h3>
-          <div className="flex gap-3">
-            {Object.entries(links).map(([platform, url]) => {
-              // const Icon = socialIcons[platform as keyof typeof socialIcons];
-              const color = socialColors[platform as keyof typeof socialColors];
-              
-              return (
-                <a
-                  key={platform}
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${color} p-3 rounded-xl text-white hover:scale-110 
-                    transition-transform shadow-md hover:shadow-lg`}
-                >
-                  {/* <Icon size={18} /> */}
-                </a>
-              );
-            })}
-          </div>
-        </div>
+        
 
         
         <button
