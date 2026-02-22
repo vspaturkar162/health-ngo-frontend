@@ -1,6 +1,6 @@
 // const focusAreas = {
 //   "Maternal and Child Health": [
-//     "Aahar Programme",
+
 //     "SNEHA Centre Programme",
 //     "Building Bridges Programme",
 //     "Healthy Cities Programme"
