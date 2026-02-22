@@ -215,12 +215,18 @@ export default function AdminDashboard() {
   const donationsRef = useRef<HTMLElement | null>(null);
 
   const [donations, setDonations] = useState<any[]>([]);
+  const [crisisRequests, setCrisisRequests] = useState<any[]>([]);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/admin/donations`)
       .then(res => res.json())
       .then(data => setDonations(data))
       .catch(err => console.error("Donation fetch error:", err));
+  }, []);
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}/crisis`)
+      .then(res => res.json())
+      .then(data => setCrisisRequests(data));
   }, []);
 
   const scrollToSection = (ref: React.RefObject<HTMLElement | null>) => {
@@ -353,6 +359,21 @@ export default function AdminDashboard() {
                 </table>
               </div>
             )}
+          </section>
+          {/* // Crisis Requests Section (similar structure to Donations) */}
+          <section className="bg-white rounded-xl shadow-sm p-6">
+            <h2 className="text-xl font-semibold mb-4">Crisis Requests</h2>
+
+            {crisisRequests.map((r) => (
+              <div key={r._id} className="border-b py-3">
+                <p><strong>Name:</strong> {r.name}</p>
+                <p><strong>Phone:</strong> {r.phone}</p>
+                <p><strong>Message:</strong> {r.message}</p>
+                <p className="text-sm text-gray-500">
+                  {new Date(r.createdAt).toLocaleString()}
+                </p>
+              </div>
+            ))}
           </section>
         </div>
       </main>
