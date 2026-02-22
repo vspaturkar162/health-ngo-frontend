@@ -34,6 +34,8 @@
 
 import { Link } from "react-router-dom";
 import { Heart, Mail, Phone, MapPin } from "lucide-react";
+import { useState, useEffect } from "react";
+const API = process.env.REACT_APP_API_URL;
 
 const footerLinks = {
   About: [
@@ -58,6 +60,14 @@ const footerLinks = {
 };
 
 export default function Footer() {
+  const [socialLinks, setSocialLinks] = useState<any>(null);
+
+  useEffect(() => {
+    fetch(`${API}/social-links`)
+      .then(res => res.json())
+      .then(setSocialLinks)
+      .catch(console.error);
+  }, []);
   return (
     <footer className="bg-[#0d2d3a] text-white">
       {/* Main footer */}
@@ -96,17 +106,26 @@ export default function Footer() {
 
             {/* Social links */}
             <div className="flex gap-2">
-              {["𝕏", "in", "f", "▶"].map((icon) => (
-                <button
-                  key={icon}
-                  type="button"
-                  className="w-9 h-9 bg-white/8 rounded-xl flex items-center justify-center
-                  text-sm text-white/60 hover:bg-[#0f7b6c] hover:text-white
-                  transition-all duration-200"
-                  aria-label="Social link"
-                >
-                  {icon}
-                </button>
+              {socialLinks && [
+                { icon: "𝕏", url: socialLinks.twitter },
+                { icon: "in", url: socialLinks.linkedin },
+                { icon: "f", url: socialLinks.facebook },
+                { icon: "▶", url: socialLinks.youtube },
+              ].map(({ icon, url }) => (
+                url && (
+                  <a
+                    key={icon}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-9 h-9 bg-white/8 rounded-xl flex items-center justify-center
+                    text-sm text-white/60 hover:bg-[#0f7b6c] hover:text-white
+                    transition-all duration-200"
+                    aria-label="Social link"
+                  >
+                    {icon}
+                  </a>
+                )
               ))}
             </div>
           </div>

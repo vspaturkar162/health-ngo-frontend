@@ -208,6 +208,7 @@ export default function AdminDashboard() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const blogsRef = useRef<HTMLElement | null>(null);
+  const eventsRef = useRef<HTMLElement | null>(null);
   const resourcesRef = useRef<HTMLElement | null>(null);
   const peopleRef = useRef<HTMLElement | null>(null);
   const volunteersRef = useRef<HTMLElement | null>(null);
@@ -242,6 +243,7 @@ export default function AdminDashboard() {
 
   const navItems = [
     { name: "Blogs", ref: blogsRef, color: "from-blue-500 to-blue-600" },
+    { name: "Events", ref: eventsRef, color: "from-cyan-500 to-cyan-600" },
     { name: "Resources", ref: resourcesRef, color: "from-emerald-500 to-emerald-600" },
     { name: "People", ref: peopleRef, color: "from-purple-500 to-purple-600" },
     { name: "Volunteers", ref: volunteersRef, color: "from-pink-500 to-pink-600" },
@@ -322,14 +324,15 @@ export default function AdminDashboard() {
 
         <div className="space-y-8">
           <section ref={blogsRef}><BlogsAdmin /></section>
+          <section ref={eventsRef} className="space-y-8">
+            <EventsAdmin />   {/* ✅ ADD THIS */}
+          </section>
           <section ref={resourcesRef}><ResourcesAdmin /></section>
           <section ref={peopleRef}><PeopleAdmin /></section>
           <section ref={volunteersRef}><VolunteersAdmin /></section>
           <section ref={aboutRef}><AboutAdmin /></section>
           <section ref={socialRef}><SocialLinksAdmin /></section>
-          <section className="space-y-8">
-            <EventsAdmin />   {/* ✅ ADD THIS */}
-          </section>
+          
           {/* DONATIONS SECTION */}
           <section ref={donationsRef} className="bg-white rounded-xl shadow-sm p-6">
             <h2 className="text-xl font-semibold text-gray-800 mb-4">Donations</h2>

@@ -27,7 +27,8 @@
 
 // import { FiLink, FiFacebook, FiTwitter, FiInstagram, FiLinkedin, FiYoutube, FiSave } from "react-icons/fi";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+const API = process.env.REACT_APP_API_URL;
 
 export default function SocialLinksAdmin() {
   const [links, setLinks] = useState({
@@ -53,6 +54,12 @@ export default function SocialLinksAdmin() {
     linkedin: "bg-blue-700",
     youtube: "bg-red-600"
   };
+  useEffect(() => {
+    fetch(`${API}/social-links`)
+      .then(res => res.json())
+      .then(setLinks)
+      .catch(console.error);
+  }, []);
 
   return (
     <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
@@ -117,13 +124,32 @@ export default function SocialLinksAdmin() {
           </div>
         </div>
 
+        
         <button
+          onClick={async () => {
+            const token = localStorage.getItem("token");
+
+            const res = await fetch(`${API}/social-links`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify(links),
+            });
+
+            if (!res.ok) {
+              alert("Failed to update social links");
+              return;
+            }
+
+            alert("Social links updated successfully");
+          }}
           className="mt-6 w-full bg-gradient-to-r from-indigo-600 to-indigo-700 
             text-white px-6 py-4 rounded-xl hover:from-indigo-700 hover:to-indigo-800 
             transition-all transform hover:scale-[1.02] active:scale-[0.98] 
             shadow-lg hover:shadow-xl font-medium flex items-center justify-center gap-2"
         >
-          {/* <FiSave size={20} /> */}
           Update Social Links
         </button>
       </div>
