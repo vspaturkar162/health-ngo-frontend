@@ -174,9 +174,21 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-3 text-white/30 text-xs">
             <span>© {new Date().getFullYear()} HealthForAll NGO. All rights reserved.</span>
             <div className="flex gap-5">
-              <a href="pages/Privacy" className="hover:text-white transition-colors">Privacy Policy</a>
-              <a href="pages/TermsConditions" className="hover:text-white transition-colors">Terms of Use</a>
-              <a href="pages/Blogs">Blog</a>
+              <Link
+                to="/privacy"
+                className="hover:text-white transition-colors"
+              >
+                Privacy Policy
+              </Link>
+
+              <Link
+                to="/terms"
+                className="hover:text-white transition-colors"
+              >
+                Terms of Use
+              </Link>
+
+              <Link to="/blogs">Blog</Link>
             </div>
           </div>
         </div>
