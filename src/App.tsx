@@ -159,7 +159,8 @@ import Contact from "./pages/Contact";
 import Donate from "./pages/Donate";
 import Volunteer from "./pages/volunteer";
 import CrisisHelpline from "./pages/CrisisHelpline";
-
+import Privacy from "./pages/Privacy";
+import TermsConditions from "./pages/TermsConditions";
 // Admin pages
 import AdminAuth from "./pages/admin/AdminAuth";
 import AdminDashboard from "./pages/admin/Dashboard";
@@ -195,6 +196,9 @@ function App() {
         <Route path="/donate" element={<Donate />} />
         <Route path="/volunteer" element={<Volunteer />} />
         <Route path="/crisis-helpline" element={<CrisisHelpline />} />
+
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<TermsConditions />} />
 
         {/* ===== ADMIN ROUTES ===== */}
         <Route path="/admin" element={<AdminAuth />} />
