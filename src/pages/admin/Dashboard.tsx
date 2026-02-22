@@ -201,6 +201,7 @@ import PeopleAdmin from "./sections/PeopleAdmin";
 import VolunteersAdmin from "./sections/VolunteersAdmin";
 import AboutAdmin from "./sections/AboutAdmin";
 import SocialLinksAdmin from "./sections/SocialLinksAdmin";
+import EventsAdmin from "./sections/EventsAdmin";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -326,7 +327,9 @@ export default function AdminDashboard() {
           <section ref={volunteersRef}><VolunteersAdmin /></section>
           <section ref={aboutRef}><AboutAdmin /></section>
           <section ref={socialRef}><SocialLinksAdmin /></section>
-
+          <section className="space-y-8">
+            <EventsAdmin />   {/* ✅ ADD THIS */}
+          </section>
           {/* DONATIONS SECTION */}
           <section ref={donationsRef} className="bg-white rounded-xl shadow-sm p-6">
             <h2 className="text-xl font-semibold text-gray-800 mb-4">Donations</h2>
