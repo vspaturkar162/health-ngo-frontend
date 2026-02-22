@@ -91,6 +91,21 @@ export default function Donate() {
     "₹5,000": "equips a SNEHA Centre for one full day",
   };
 
+  const submitDonation = async () => {
+  const amountNumber = Number(selected.replace(/[₹,]/g, ""));
+
+  await fetch("http://localhost:5000/api/donations", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      donorName: "Anonymous Donor",
+      amount: amountNumber,
+    }),
+  });
+
+  alert("Donation successful ❤️");
+  setOpen(false);
+};
   return (
     <>
       {/* <Navbar /> */}
@@ -292,7 +307,7 @@ export default function Donate() {
                 I declare that I am an Indian citizen and this donation is from my own funds.
               </label>
 
-              <button className="col-span-2 bg-gradient-to-r from-[#e05c3a] to-[#c0392b] text-white font-bold py-3.5 rounded-xl hover:shadow-lg transition-all">
+              <button onClick={submitDonation} className="col-span-2 bg-gradient-to-r from-[#e05c3a] to-[#c0392b] text-white font-bold py-3.5 rounded-xl hover:shadow-lg transition-all">
                 Submit Donation
               </button>
             </form>

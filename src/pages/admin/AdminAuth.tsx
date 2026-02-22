@@ -197,7 +197,7 @@ export default function AdminAuth() {
 
           <input
             type="email"
-            placeholder="Email address"
+            placeholder="Username"
             className="w-full border rounded-lg px-4 py-3 mb-4 focus:ring-2 focus:ring-teal-500 outline-none"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
