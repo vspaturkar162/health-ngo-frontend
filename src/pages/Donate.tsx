@@ -92,21 +92,32 @@ export default function Donate() {
   };
 
   const submitDonation = async () => {
-  const amountNumber = Number(selected.replace(/[₹,]/g, ""));
+    try {
+      const amountNumber = Number(selected.replace(/[₹,]/g, ""));
 
-  await fetch("http://localhost:5000/api/donations", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      donorName: "Anonymous Donor",
-      amount: amountNumber,
-    }),
-  });
+      const res = await fetch(
+        `${process.env.REACT_APP_API_URL}/donations`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            donorName: "Anonymous Donor",
+            amount: amountNumber,
+          }),
+        }
+      );
 
-  alert("Donation successful ❤️");
-  setOpen(false);
+      if (!res.ok) throw new Error("Failed");
+
+      alert("Donation successful ❤️");
+      setOpen(false);
+    } catch (err) {
+      alert("Donation failed");
+      console.error(err);
+  }
 };
-  return (
+
+return (
     <>
       {/* <Navbar /> */}
 
@@ -307,7 +318,9 @@ export default function Donate() {
                 I declare that I am an Indian citizen and this donation is from my own funds.
               </label>
 
-              <button onClick={submitDonation} className="col-span-2 bg-gradient-to-r from-[#e05c3a] to-[#c0392b] text-white font-bold py-3.5 rounded-xl hover:shadow-lg transition-all">
+              <button 
+              type="button"
+              onClick={submitDonation} className="col-span-2 bg-gradient-to-r from-[#e05c3a] to-[#c0392b] text-white font-bold py-3.5 rounded-xl hover:shadow-lg transition-all">
                 Submit Donation
               </button>
             </form>
