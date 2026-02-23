@@ -101,7 +101,11 @@ export default function BlogDetail() {
       {/* Hero image */}
       <div className="w-full h-72 md:h-[440px] overflow-hidden bg-[#e6f5f3]">
         <img
-          src={blog.image}
+          src={
+            blog.image.startsWith("http")
+              ? blog.image
+              : `${API}/${blog.image}`
+          }
           alt={blog.title}
           className="w-full h-full object-cover"
         />
@@ -124,7 +128,7 @@ export default function BlogDetail() {
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
             {blog.title}
-            {blog.image && <img src={blog.image} alt={blog.title} className="w-full h-64 object-cover rounded mb-4 mt-4" />}
+            
           </h1>
 
           {/* Divider */}
