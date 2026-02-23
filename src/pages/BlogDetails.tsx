@@ -124,6 +124,7 @@ export default function BlogDetail() {
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
             {blog.title}
+            {blog.image && <img src={blog.image} alt={blog.title} className="w-full h-64 object-cover rounded mb-4 mt-4" />}
           </h1>
 
           {/* Divider */}
