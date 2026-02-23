@@ -101,13 +101,7 @@ export default function BlogDetail() {
       {/* Hero image */}
       <div className="w-full h-72 md:h-[440px] overflow-hidden bg-[#e6f5f3]">
         <img
-          src={
-            blog.image
-              ? blog.image.startsWith("http")
-                ? blog.image
-                : `${API}/${blog.image}`
-              : "/placeholder.jpg"
-          }
+          src={blog.image}
           alt={blog.title}
           className="w-full h-full object-cover"
         />
